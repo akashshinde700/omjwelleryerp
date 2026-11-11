@@ -1,0 +1,22 @@
+SIZE 99.10 mm, 15 mm
+DIRECTION 0,0
+REFERENCE 0,0
+OFFSET 0 mm
+SET PEEL OFF
+SET CUTTER OFF
+SET PARTIAL_CUTTER OFF
+SET TEAR ON
+CLS
+BITMAP 300,42,7,40,1,À     €     Ÿÿÿÿÿÿ?ýïŸwßÿÿïßÿÿûÿÿÿÿÿÿÿÿÿÿÿÿÀ þ  €  ü  ?€ ø  ?€ ð  ?€  à  ?€  @  ?À ÿ¿ü àþü ÿð ü üÿøü øÿüü ð ÿþ ü àÿÿ | Àÿÿ€?€?ÿÿÀÿ ÿÿàþ ÿÿÿð üÿÿÿøøÿÿÿüð ÿÿÿþ àÿÿÿÿ @ÿÿÿÿ€ ?ÿÿÿÿÀ ÿÿÿÿà ÿÿÿÿÿðÿÿÿÿÿøÿÿÿÿÿü ÿÿÿÿÿþÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ
+CODEPAGE 1252
+TEXT 500,105,"ROMAN.TTF",180,1,8,"RRING1"
+TEXT 500,85,"ROMAN.TTF",180,1,8,"GW:10.000 GM"
+TEXT 500,65,"ROMAN.TTF",180,1,8,"NW:10.000 GM"
+TEXT 500,45,"ROMAN.TTF",180,1,8,""
+TEXT 205,105,"ROMAN.TTF",180,1,8,"AJ"
+BARCODE 205,80,"128M",32,0,180,1,2,"1004"
+TEXT 205,45,"ROMAN.TTF",180,1,8,"SADA NECKLACE"
+TEXT 120,45,"ROMAN.TTF",180,1,8,"1004"
+TEXT 350,105,"ROMAN.TTF",180,1,8,"84%"
+PRINT 1,1
+                                                        

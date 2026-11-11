@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `Quotation` ADD COLUMN `igst` DOUBLE NOT NULL DEFAULT 0;

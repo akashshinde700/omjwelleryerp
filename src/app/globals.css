@@ -1,0 +1,515 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.625rem;
+  /* Jewellery theme: warm amber/gold + deep slate sidebar */
+  --background: oklch(0.985 0.008 80);
+  --foreground: oklch(0.18 0.02 60);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.02 60);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.02 60);
+  --primary: oklch(0.55 0.16 65);          /* amber/gold */
+  --primary-foreground: oklch(0.99 0.01 80);
+  --secondary: oklch(0.96 0.02 75);
+  --secondary-foreground: oklch(0.25 0.04 60);
+  --muted: oklch(0.96 0.012 75);
+  --muted-foreground: oklch(0.5 0.03 65);
+  --accent: oklch(0.94 0.03 70);
+  --accent-foreground: oklch(0.3 0.05 55);
+  --destructive: oklch(0.58 0.22 27);
+  --border: oklch(0.9 0.015 75);
+  --input: oklch(0.9 0.015 75);
+  --ring: oklch(0.6 0.16 65);
+  --chart-1: oklch(0.62 0.19 55);   /* gold */
+  --chart-2: oklch(0.55 0.13 160);  /* emerald */
+  --chart-3: oklch(0.5 0.18 280);   /* amethyst */
+  --chart-4: oklch(0.7 0.16 30);    /* coral */
+  --chart-5: oklch(0.65 0.15 200);  /* teal */
+  --sidebar: oklch(0.22 0.03 55);
+  --sidebar-foreground: oklch(0.96 0.01 80);
+  --sidebar-primary: oklch(0.55 0.17 55);  /* AA: white on this is 4.97:1 (was 3.73) */
+  --sidebar-primary-foreground: oklch(0.99 0.01 80);
+  --sidebar-accent: oklch(0.3 0.04 55);
+  --sidebar-accent-foreground: oklch(0.96 0.01 80);
+  --sidebar-border: oklch(0.32 0.03 55);
+  --sidebar-ring: oklch(0.55 0.16 65);
+
+  /* ── The primary action ──────────────────────────────────────────────────────
+   * One definition for the button that raises a bill, adds a customer, books a loan. It was
+   * `from-amber-500 to-orange-600` with white text, which measures 2.15:1 at the light end —
+   * the worst contrast in the product, on the control that matters most. Same gold gradient,
+   * two stops deeper: 5.1:1 at the light end, 6.6:1 at the dark one. Legible under shop
+   * lighting, and identical in both themes so the primary action never moves colour. */
+  --brand-from: oklch(0.55 0.17 55);
+  --brand-to: oklch(0.5 0.19 38);
+  --brand-from-hover: oklch(0.5 0.17 55);
+  --brand-to-hover: oklch(0.45 0.19 38);
+
+  /* ── Sheet: the dense spreadsheet data-entry surface (oMunim look) ───────────
+   * Pale-yellow tab band, amber panel title, pale-green header-field block, hairline white
+   * grid, tinted totals row, five pill tones. oMunim's own palette is pale grey on pale
+   * yellow (~2:1); these keep its CHARACTER and clear 4.5:1. Every token is paired in
+   * `.dark`; nothing here is light-only.
+   *
+   * Measured in Chromium (canvas-resolved sRGB, WCAG 2.x), light / dark:
+   *   tab label on band 8.72 / 9.56 · active tab 9.27 / 7.68 · tab hover 7.82 / 7.30
+   *   panel title on card 6.30 / 8.59 · tiny label on green block 6.78 / 7.97
+   *   field text on green block 16.70 / 13.99 · grid header 11.99 / 11.89
+   *   grid body cell 18.90 / 15.77 · focused cell 17.36 / 12.97 · totals band 12.77 / 11.75
+   *   pills: green 5.05/8.97 · blue 5.90/8.20 · amber 5.35/9.10 · yellow 9.91/11.51 · red 5.85/6.80
+   *   disabled cell 5.37 / 5.83 · non-text: hairline 3.11/3.19, green border 3.08/3.68,
+   *   focus ring on focused cell 3.74 / 3.58. */
+  --sheet-line: oklch(0.66 0.02 80);          /* hairline between cells */
+  --sheet-tab-bar: oklch(0.95 0.06 95);        /* pale yellow band */
+  --sheet-tab-fg: oklch(0.38 0.05 70);
+  --sheet-tab-active: oklch(0.87 0.13 95);     /* stronger yellow */
+  --sheet-tab-active-fg: oklch(0.3 0.06 70);
+  --sheet-title: oklch(0.5 0.16 52);           /* amber/orange panel title */
+  --sheet-field-bg: oklch(0.955 0.03 152);     /* pale green header block */
+  --sheet-field-border: oklch(0.64 0.1 152);
+  --sheet-label: oklch(0.44 0.02 152);         /* tiny uppercase label */
+  --sheet-head-bg: oklch(0.93 0.025 90);
+  --sheet-head-fg: oklch(0.28 0.02 70);
+  --sheet-cell-focus: oklch(0.97 0.04 90);
+  --sheet-total-bg: oklch(0.93 0.05 95);
+  --sheet-total-fg: oklch(0.26 0.03 70);
+  --sheet-green: oklch(0.52 0.13 150);
+  --sheet-green-fg: oklch(0.99 0.01 150);
+  --sheet-blue: oklch(0.5 0.15 255);
+  --sheet-blue-fg: oklch(0.99 0.005 255);
+  --sheet-amber: oklch(0.53 0.15 58);
+  --sheet-amber-fg: oklch(0.99 0.01 80);
+  --sheet-yellow: oklch(0.87 0.15 95);         /* the one pill with dark text */
+  --sheet-yellow-fg: oklch(0.28 0.05 80);
+  --sheet-red: oklch(0.52 0.2 28);
+  --sheet-red-fg: oklch(0.99 0.01 30);
+
+  /* ── Auto-calculated cell ────────────────────────────────────────────────────
+   * Net weight, final purity, fine weight, every charge total: the formula owns it, the
+   * user does not. The spec names #fffbeb; oklch(0.985 0.022 92) resolves to #fffaea, one
+   * step off and inside the ramp. NOT `--sheet-cell-focus` (#fff5d7): that tint means "the
+   * cell your caret is in RIGHT NOW", and painting eight permanent cells with it would
+   * retire the focus affordance on a keyboard-driven grid. Near in colour, opposite in job.
+   *
+   * Measured (canvas-resolved sRGB, WCAG 2.x), light / dark:
+   *   auto value on auto bg 9.88 / 11.86
+   *   non-text: auto border on auto bg 3.92 / 4.33, on card 4.09 / 5.62.
+   *   Against `--sheet-line` the border separates by chroma (0.15 amber vs 0.02 warm grey),
+   *   not luminance — 1.31 / 1.75 — which is the intent: same weight of line, different voice. */
+  --sheet-auto-bg: oklch(0.985 0.022 92);
+  --sheet-auto-fg: oklch(0.38 0.1 58);
+  --sheet-auto-border: oklch(0.6 0.15 65);
+}
+
+.dark {
+  --background: oklch(0.16 0.015 55);
+  --foreground: oklch(0.96 0.01 80);
+  --card: oklch(0.21 0.02 55);
+  --card-foreground: oklch(0.96 0.01 80);
+  --popover: oklch(0.21 0.02 55);
+  --popover-foreground: oklch(0.96 0.01 80);
+  --primary: oklch(0.7 0.18 65);
+  --primary-foreground: oklch(0.16 0.02 55);
+  --secondary: oklch(0.28 0.03 55);
+  --secondary-foreground: oklch(0.96 0.01 80);
+  --muted: oklch(0.26 0.02 55);
+  --muted-foreground: oklch(0.7 0.02 70);
+  --accent: oklch(0.3 0.04 55);
+  --accent-foreground: oklch(0.96 0.01 80);
+  --destructive: oklch(0.65 0.2 25);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.6 0.16 65);
+  --chart-1: oklch(0.7 0.19 60);
+  --chart-2: oklch(0.62 0.14 160);
+  --chart-3: oklch(0.6 0.18 280);
+  --chart-4: oklch(0.72 0.16 30);
+  --chart-5: oklch(0.68 0.15 200);
+  --sidebar: oklch(0.18 0.02 55);
+  --sidebar-foreground: oklch(0.96 0.01 80);
+  --sidebar-primary: oklch(0.7 0.18 65);
+  --sidebar-primary-foreground: oklch(0.16 0.02 55);
+  --sidebar-accent: oklch(0.28 0.03 55);
+  --sidebar-accent-foreground: oklch(0.96 0.01 80);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.6 0.16 65);
+
+  /* Sheet, dark. Same hues, inverted weight: bands go deep and tinted, text goes near-white,
+     the five pills flip to a light tone with dark text (the same move `--primary` makes). */
+  --sheet-line: oklch(0.52 0.02 60);
+  --sheet-tab-bar: oklch(0.26 0.03 90);
+  --sheet-tab-fg: oklch(0.84 0.04 90);
+  --sheet-tab-active: oklch(0.43 0.09 92);
+  --sheet-tab-active-fg: oklch(0.98 0.02 90);
+  --sheet-title: oklch(0.78 0.15 65);
+  --sheet-field-bg: oklch(0.25 0.035 155);
+  --sheet-field-border: oklch(0.52 0.08 155);
+  --sheet-label: oklch(0.78 0.04 155);
+  --sheet-head-bg: oklch(0.29 0.025 70);
+  --sheet-head-fg: oklch(0.94 0.015 80);
+  --sheet-cell-focus: oklch(0.28 0.04 80);
+  --sheet-total-bg: oklch(0.31 0.045 90);
+  --sheet-total-fg: oklch(0.96 0.02 85);
+  --sheet-green: oklch(0.75 0.15 152);
+  --sheet-green-fg: oklch(0.18 0.03 152);
+  --sheet-blue: oklch(0.74 0.12 245);
+  --sheet-blue-fg: oklch(0.18 0.03 245);
+  --sheet-amber: oklch(0.78 0.15 65);
+  --sheet-amber-fg: oklch(0.18 0.03 65);
+  --sheet-yellow: oklch(0.85 0.15 95);
+  --sheet-yellow-fg: oklch(0.2 0.04 85);
+  --sheet-red: oklch(0.7 0.17 28);
+  --sheet-red-fg: oklch(0.16 0.03 28);
+
+  /* Auto-calculated cell, dark: the amber goes deep instead of pale, the value goes warm
+     near-white. The band sits close to `--sheet-cell-focus` in luminance here (every dark
+     surface is crowded around L 0.30) — the 4.33:1 amber border is what keeps them apart,
+     and focus still adds its own 2px inset ring on top. */
+  --sheet-auto-bg: oklch(0.3 0.07 82);
+  --sheet-auto-fg: oklch(0.95 0.05 92);
+  --sheet-auto-border: oklch(0.66 0.14 80);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  /* ── Devanagari ──────────────────────────────────────────────────────────────
+   * Hindi sits on a taller body than Latin: matras above and conjuncts below need
+   * head- and foot-room a Latin line-height does not leave, so a 11px Hindi label in a
+   * `leading-tight` row loses the top of its matra. It also has NO CASE — inheriting an
+   * `uppercase` from an English section heading mangles conjuncts for no benefit, and a
+   * direct declaration always beats an inherited one, so this is the guard. */
+  .hindi {
+    line-height: 1.7;
+    text-transform: none;
+    font-synthesis-weight: none;
+  }
+
+  /* Motion is for orientation, not delight. Covers every CSS transition and the
+     `animate-pulse` skeletons. framer-motion animates inline transforms and needs
+     <MotionConfig reducedMotion="user"> in the root layout — handed to fe-platform. */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Custom scrollbar for data lists */
+  .nice-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+  .nice-scroll::-webkit-scrollbar-track { background: transparent; }
+  .nice-scroll::-webkit-scrollbar-thumb { background: var(--muted-foreground); border-radius: 4px; opacity: 0.4; }
+  .nice-scroll::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+}
+
+@layer utilities {
+  /* The one primary-action surface. Used by every "New …" / "Save" button in the modules;
+     `@layer utilities` so it is never outranked by a Button variant's own `bg-*`. */
+  .btn-brand {
+    background-image: linear-gradient(to right, var(--brand-from), var(--brand-to));
+    color: #fff;
+  }
+  .btn-brand:hover {
+    background-image: linear-gradient(to right, var(--brand-from-hover), var(--brand-to-hover));
+  }
+}
+
+/* ═══════════════════════ Sheet: dense spreadsheet data entry ═══════════════════════
+ * The oMunim Add-Stock look, as nine composable treatments. `@layer components`, NOT
+ * utilities, on purpose: a Tailwind class the consumer adds (`px-3`, `text-right`,
+ * `w-24`) must win over these, and layer order decides that regardless of specificity.
+ *
+ * Everything else is plain Tailwind — these are only the things Tailwind cannot say
+ * cleanly: collapsed hairline cell borders, the input-inside-a-cell reset, tinted bands.
+ *
+ * Type is px here, not the rem ramp: 10–12px tabular density is the brief. Hit targets
+ * are NOT scaled down with it — 30px min, 38px under `pointer: coarse` (tablet).
+ *
+ * Markup it expects:
+ *   <div class="sheet-tabs"> <button class="sheet-tab" aria-selected="true"> … </div>
+ *   <h2 class="sheet-title"><Package/>Add Stock<span class="ml-auto">…actions…</span></h2>
+ *   <div class="sheet-fields grid-cols-4"><div><label class="sheet-label">Firm</label>…
+ *   <table class="sheet-grid"> thead th / tbody td / <tr class="sheet-total">
+ *   <input class="sheet-cell-input"> directly inside a td (the td un-pads itself)
+ *   The list below the form: same .sheet-grid + .sheet-rows + .sheet-total footer.
+ */
+@layer components {
+  /* Pale yellow tab band across the top of the panel. */
+  .sheet-tabs {
+    display: flex; align-items: flex-end; gap: 2px; overflow-x: auto;
+    padding: 4px 6px 0;
+    background: var(--sheet-tab-bar);
+    border: 1px solid var(--sheet-line); border-bottom: 0;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  }
+  .sheet-tab {
+    display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+    min-height: 32px; padding: 0 12px;
+    font-size: 12px; font-weight: 600; line-height: 1;
+    color: var(--sheet-tab-fg); background: transparent;
+    border: 1px solid transparent; border-bottom: 0;
+    border-radius: 4px 4px 0 0;
+  }
+  .sheet-tab:hover { background: color-mix(in oklch, var(--sheet-tab-active) 45%, transparent); }
+  .sheet-tab[aria-selected="true"], .sheet-tab[data-active="true"] {
+    color: var(--sheet-tab-active-fg); background: var(--sheet-tab-active);
+    border-color: var(--sheet-line);
+  }
+  .sheet-tab:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; }
+  .sheet-tab:disabled { opacity: 0.5; }
+
+  /* Panel title: amber, small icon, actions pushed right with `ml-auto` on a child. */
+  .sheet-title {
+    display: flex; align-items: center; gap: 6px; width: 100%;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.01em; line-height: 1.4;
+    color: var(--sheet-title);
+  }
+
+  /* Pale-green header-field block: labels sit ABOVE their cell, not beside it.
+     Bring your own `grid-cols-*`. */
+  .sheet-fields {
+    display: grid; gap: 6px 10px; padding: 8px 10px;
+    background: var(--sheet-field-bg);
+    border: 1px solid var(--sheet-field-border);
+    border-radius: var(--radius-sm);
+  }
+  .sheet-label {
+    display: block; margin-bottom: 2px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.06em; line-height: 1.3;
+    text-transform: uppercase; color: var(--sheet-label);
+  }
+
+  /* The spreadsheet. `border-collapse` is what makes the hairline a hairline: adjacent
+     cells share one 1px line instead of stacking two. Header row sticks while you scroll. */
+  .sheet-grid {
+    width: 100%; border-collapse: collapse; background: var(--card);
+    font-size: 11.5px; line-height: 1.35;
+  }
+  .sheet-grid th, .sheet-grid td {
+    border: 1px solid var(--sheet-line);
+    padding: 3px 6px; text-align: left; vertical-align: middle;
+  }
+  .sheet-grid thead th {
+    position: sticky; top: 0; z-index: 1;
+    background: var(--sheet-head-bg); color: var(--sheet-head-fg);
+    font-size: 11px; font-weight: 700; white-space: nowrap;
+    padding-top: 5px; padding-bottom: 5px;
+  }
+  /* The list variant: row separators only, no vertical rules. */
+  .sheet-rows th, .sheet-rows td { border-left: 0; border-right: 0; }
+
+  /* An input that lives in a cell and does not draw a second box around itself:
+     no border, no radius, no ring — the cell already has all three. Focus is an inset
+     ring so it cannot push the row taller. */
+  .sheet-grid td:has(> .sheet-cell-input) { padding: 0; }
+  .sheet-cell-input {
+    display: block; width: 100%; min-height: 30px; padding: 0 6px;
+    font-family: inherit; font-size: 11.5px; line-height: 1.2;
+    color: inherit; background: transparent;
+    border: 0; border-radius: 0; outline: none; box-shadow: none;
+  }
+  .sheet-cell-input:focus, .sheet-cell-input:focus-visible {
+    outline: none; background: var(--sheet-cell-focus);
+    box-shadow: inset 0 0 0 2px var(--ring);
+  }
+  .sheet-cell-input:disabled, .sheet-cell-input[readonly] {
+    background: var(--muted); color: var(--muted-foreground); cursor: not-allowed;
+  }
+
+  /* An auto-calculated, read-only value. Grey says "you cannot have this"; amber says
+     "I worked this out for you" — so this must beat the `[readonly]` rule above, which
+     would otherwise paint it `--muted`. `.sheet-auto` alone is (0,1,0) and LOSES to
+     `.sheet-cell-input[readonly]` (0,2,0), so the second selector pairs both classes to
+     match its specificity and win on source order. Declared after it, deliberately.
+     Border is a real 1px, not an inset shadow: `box-sizing: border-box` keeps min-height
+     at 30px so the row does not grow, and it leaves :focus's inset ring free to show. */
+  .sheet-auto,
+  .sheet-cell-input.sheet-auto {
+    background: var(--sheet-auto-bg);
+    color: var(--sheet-auto-fg);
+    border: 1px solid var(--sheet-auto-border);
+    font-variant-numeric: tabular-nums;
+    cursor: default;
+  }
+
+  /* Totals band under the grid — also the bold footer line of the list below it. */
+  .sheet-total { background: var(--sheet-total-bg); color: var(--sheet-total-fg); font-weight: 700; }
+  .sheet-total th, .sheet-total td { border-top-width: 2px; background: var(--sheet-total-bg); }
+
+  /* "Calculation Steps" disclosure inside a card: one monospace line per formula, so a
+     disputed net weight can be read back in the order it was worked out. Quieter than the
+     totals band on purpose — it explains the number, it is not the number. No new tokens:
+     `--muted` + `--sheet-line` already say "inset, secondary region" in both themes.
+     Rows are direct children; `overflow-x: auto` because a long formula must scroll, not wrap. */
+  .sheet-steps {
+    padding: 6px 8px; overflow-x: auto;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 11.5px; line-height: 1.6;
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground); background: var(--muted);
+    border: 1px solid var(--sheet-line); border-radius: var(--radius-sm);
+  }
+  .sheet-steps > * {
+    display: flex; gap: 8px; justify-content: space-between; white-space: nowrap;
+  }
+  .sheet-steps > * + * { border-top: 1px dotted var(--sheet-line); }
+
+  /* Coloured action pills. Tone classes only set the two colours. */
+  .sheet-pill {
+    display: inline-flex; align-items: center; justify-content: center; gap: 4px;
+    min-height: 28px; padding: 0 10px; white-space: nowrap;
+    font-size: 11.5px; font-weight: 600; line-height: 1;
+    border: 1px solid transparent; border-radius: 999px; cursor: pointer;
+  }
+  .sheet-pill:hover { filter: brightness(0.93); }
+  .dark .sheet-pill:hover { filter: brightness(1.08); }
+  .sheet-pill:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  .sheet-pill:disabled { opacity: 0.55; filter: none; cursor: not-allowed; }
+  .sheet-pill-green  { background: var(--sheet-green);  color: var(--sheet-green-fg); }
+  .sheet-pill-blue   { background: var(--sheet-blue);   color: var(--sheet-blue-fg); }
+  .sheet-pill-amber  { background: var(--sheet-amber);  color: var(--sheet-amber-fg); }
+  .sheet-pill-yellow { background: var(--sheet-yellow); color: var(--sheet-yellow-fg); }
+  .sheet-pill-red    { background: var(--sheet-red);    color: var(--sheet-red-fg); }
+
+  /* 11px text is fine to read; 11px to hit is not. Fingers get the taller box. */
+  @media (pointer: coarse) {
+    .sheet-cell-input { min-height: 38px; }
+    .sheet-tab, .sheet-pill { min-height: 38px; }
+    .pos-dense [data-slot="input"], .pos-dense [data-slot="select-trigger"] { height: 34px; min-height: 34px; }
+  }
+}
+
+/* ── POS density ───────────────────────────────────────────────────────────
+ * The billing panel has ~60 controls that must fit one 1080p screen. Rather than
+ * hand-tighten every Input and SelectTrigger in sell.tsx (and re-tighten each one the
+ * next time a field is added), the panel declares `.pos-dense` once and every control
+ * inside it shrinks to counter density. One rule, one place, no drift.
+ *
+ * DELIBERATELY NOT in `@layer components`. Tailwind v4 declares
+ * `@layer theme, base, components, utilities`, and layer order beats specificity — so a
+ * layered rule LOSES to shadcn's own `h-9` utility on Input, and every box stayed 36px
+ * tall while the CSS looked correct. Unlayered rules sit above all layers, which is the
+ * only thing that actually wins here. (Same trap `.sheet-auto` documents above.)
+ *
+ * data-slot is shadcn's own hook on these components, so this does not depend on any
+ * class name a future refactor might change. Hit targets still grow back under
+ * `pointer: coarse` via the rule below.
+ */
+.pos-dense [data-slot="input"],
+.pos-dense [data-slot="select-trigger"] {
+  height: 28px; min-height: 28px; padding-top: 0; padding-bottom: 0;
+  padding-left: 6px; padding-right: 6px;
+  font-size: 11.5px; box-shadow: none;
+}
+.pos-dense [data-slot="select-trigger"] { gap: 4px; }
+.pos-dense [data-slot="select-trigger"] svg { width: 12px; height: 12px; }
+.pos-dense [data-slot="label"] {
+  /* Same treatment as `.sheet-label`, applied to the shadcn <Label> that `Field` renders — so the
+     Sell panel's headers read as the Add Stock form's without rewriting every Field call site. */
+  display: block; margin-bottom: 2px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.06em; line-height: 1.3;
+  text-transform: uppercase; color: var(--sheet-label);
+}
+/* Inside a pale-green `.sheet-fields` block the inputs must read as cells, not as floating pills. */
+.pos-dense .sheet-fields [data-slot="input"],
+.pos-dense .sheet-fields [data-slot="select-trigger"] {
+  background: var(--card); border-radius: var(--radius-sm);
+}
+/* Field wraps every control in `space-y-1.5`; at this density 2px is the gap. */
+.pos-dense .space-y-1\.5 > * + * { margin-top: 2px; }
+.pos-dense table { font-size: 11px; }
+.pos-dense table th, .pos-dense table td { padding: 2px 4px; }
+.pos-dense thead { background: var(--sheet-head-bg); color: var(--sheet-head-fg); }
+
+/* ───────────────────────── Print ─────────────────────────
+ * Two independent print paths:
+ *  1. Legacy: a shadcn Dialog printed in place (invoice preview etc). Left alone, but now scoped
+ *     to `body:not(.print-open)` so it cannot fight path 2.
+ *  2. PrintSheet (src/components/app/print/print-sheet.tsx): a portal with id="print-root" that
+ *     carries one document on real paper. While it is open the body gets `.print-open` and every
+ *     other top-level node is display:none — NOT visibility:hidden, because a hidden-but-present
+ *     subtree still occupies pages and a multi-page document then starts on page 4.
+ */
+@media print {
+  body:not(.print-open) * { visibility: hidden; }
+  body:not(.print-open) [role=dialog], body:not(.print-open) [role=dialog] * { visibility: visible; }
+  body:not(.print-open) [role=dialog] { position: absolute; left: 0; top: 0; width: 100%; max-width: 100% !important; max-height: none !important; overflow: visible !important; border: none !important; box-shadow: none !important; padding: 0 !important; }
+  body:not(.print-open) [role=dialog] button { display: none !important; }
+  body:not(.print-open) footer, body:not(.print-open) header, body:not(.print-open) aside { display: none !important; }
+}
+
+/* The sheet only exists while a document is open. */
+#print-root { display: none; }
+body.print-open #print-root { display: block; }
+
+@media print {
+  /* Everything that is not the sheet leaves the paper entirely. */
+  body.print-open > *:not(#print-root) { display: none !important; }
+  /* A fixed, scrolling overlay prints exactly one viewport-worth. Return it to normal flow so the
+     browser can paginate it. */
+  body.print-open .print-overlay {
+    position: static !important; overflow: visible !important; background: none !important;
+    padding: 0 !important; display: block !important;
+  }
+  body.print-open .print-chrome { display: none !important; }
+  body.print-open .print-paper {
+    box-shadow: none !important; margin: 0 !important; border: 0 !important; border-radius: 0 !important;
+    width: auto !important; min-height: 0 !important; padding: 0 !important;
+  }
+  /* Paper is paper: a document never inherits the dark theme. */
+  body.print-open #print-root { color-scheme: light; background: #fff; color: #1c1917; }
+  /* Repeat table headers on every page and never split a row. */
+  .print-paper thead { display: table-header-group; }
+  .print-paper tfoot { display: table-footer-group; }
+  .print-paper tr, .print-paper .avoid-break { break-inside: avoid; page-break-inside: avoid; }
+}

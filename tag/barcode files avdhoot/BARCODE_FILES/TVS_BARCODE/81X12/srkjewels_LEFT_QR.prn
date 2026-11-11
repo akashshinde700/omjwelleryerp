@@ -1,0 +1,20 @@
+                                          <xpml><page quantity='0' pitch='10.0 mm'></xpml>SIZE 67.5 mm, 10 mm
+DIRECTION 0,0
+REFERENCE 0,0
+OFFSET 0 mm
+SET PEEL OFF
+SET CUTTER OFF
+SET PARTIAL_CUTTER OFF
+<xpml></page></xpml><xpml><page quantity='1' pitch='10.0 mm'></xpml>SET TEAR ON
+CLS
+QRCODE 280,60,L,3,A,180,M2,S7,"OPTIONZ"
+CODEPAGE 1252
+TEXT 380,61,"0",180,7,7,"OPTION7"
+TEXT 380,38,"0",180,7,7,"OPTION2"
+TEXT 380,20,"0",180,7,7,"OPTION6"
+TEXT 550,64,"0",180,7,7,"OPTION1"
+TEXT 550,20,"0",180,7,7,"OPTION4"
+TEXT 550,41,"0",180,7,7,"OPTION3"
+TEXT 458,64,"0",180,7,7,"OPTION5"
+PRINT 1,1
+<xpml></page></xpml><xpml><end/></xpml>                                                                                                                                            

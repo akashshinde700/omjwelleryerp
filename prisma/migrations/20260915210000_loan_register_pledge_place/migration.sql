@@ -1,0 +1,17 @@
+-- be-lending: Namuna 15 clause (11) — "Place of mortgage: Business / Storage / House".
+--
+-- The only column the Money Lenders Act registers need that had nowhere to live. Everything else
+-- the registers ask for was already in the schema and was audited before this file was written:
+--   CASTE, ADHAAR NO., FATHER NAME, PHONE NO, TALUKA  -> Customer.caste / aadhaar / fatherSpouse
+--                                                       / mobile / tehsil  (joined via Loan.customerId)
+--   WARD NO., VILLAGE, CITY                           -> Loan.wardNo / village / city (already present)
+--   LOAN TYPE (Sec./UnSec.)                           -> Loan.loanType     (already present)
+--   EX. FIRM / TR. FIRM / ML. FIRM                    -> Loan.exFirmId / trFirmId / mlFirmId
+--                                                       (columns already present; this task is what
+--                                                        first makes them readable and filterable)
+--   OTH INFO                                          -> Loan.note         (already present)
+--
+-- Nullable with no default and no backfill: the place of storage of a pledge taken before today was
+-- never recorded, and guessing it would put an invented fact on a statutory return. Existing rows
+-- print the clause blank for the licensee to complete by hand, which is what a real register does.
+ALTER TABLE `Loan` ADD COLUMN `pledgePlace` VARCHAR(191) NULL;

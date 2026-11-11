@@ -1,0 +1,77 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "noImplicitAny": false,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    ".next-test/types/**/*.ts",
+    ".next-test/dev/types/**/*.ts",
+    ".next-test-1/types/**/*.ts",
+    ".next-test-1/dev/types/**/*.ts",
+    ".next-test-2/types/**/*.ts",
+    ".next-test-2/dev/types/**/*.ts",
+    ".next-test-3/types/**/*.ts",
+    ".next-test-3/dev/types/**/*.ts",
+    ".next-authcheck/types/**/*.ts",
+    ".next-authcheck/dev/types/**/*.ts",
+    ".next-test-4/types/**/*.ts",
+    ".next-test-4/dev/types/**/*.ts",
+    ".next-measure-before/types/**/*.ts",
+    ".next-measure-before/dev/types/**/*.ts",
+    ".next-perf/types/**/*.ts",
+    ".next-perf/dev/types/**/*.ts",
+    ".next-measure-after/types/**/*.ts",
+    ".next-measure-after/dev/types/**/*.ts",
+    ".next-pwc/types/**/*.ts",
+    ".next-pwc/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    // Reference material dropped in beside the app, not part of it: the owner handed over a
+    // workspace folder alongside STOCK_ADD_PANEL_CALCULATION.md. It turned out to hold an
+    // unrelated scaffold project whose socket.io examples import packages we do not install,
+    // so tsc reported two errors in code we neither own nor ship.
+    "workspace-*",
+    ".next",
+    ".next-test",
+    ".next-test-1",
+    ".next-test-2",
+    ".next-test-3",
+    ".next-test-4",
+    ".next-test-5",
+    ".next-test-6",
+    ".next-test-7",
+    ".next-test-8"
+  ]
+}

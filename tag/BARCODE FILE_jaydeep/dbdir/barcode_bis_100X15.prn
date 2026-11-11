@@ -1,0 +1,26 @@
+﻿                                          SIZE 99.10 mm, 15 mm
+GAP 3 mm, 0 mm
+SET RIBBON ON
+DIRECTION 0,0
+REFERENCE 0,0
+OFFSET 0 mm
+SET PEEL OFF
+SET CUTTER OFF
+SET PARTIAL_CUTTER OFF
+SET TEAR ON
+CLS
+BITMAP 280,62,5,32,1,Ý='f™¥ `?ÿÿÿÿÿ€   ?=/Þ¿Ÿø7Ü ÿÿÿÿÿÿ€ ø ?  ø    ð    à  €¿À?Àþ àà~ Àÿð> ÿø   ÿü   ÿþ ü ÿÿ ø ÿÿð?ÿÿÀàÿÿà@ÿÿÿð ÿÿÿø ÿÿÿü ÿÿÿþ ÿÿÿÿ ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ
+CODEPAGE 1252
+TEXT 764,106,"0",180,7,9,"OPTION1"
+TEXT 764,76,"0",180,7,9,"OPTION3"
+TEXT 764,52,"0",180,7,9,"OPTION4"
+TEXT 512,44,"0",180,6,9,"OPTION8"
+TEXT 512,103,"0",180,7,9,"OPTION7"
+TEXT 400,44,"0",180,6,9,"OPTIONA"
+TEXT 764,26,"0",180,7,9,"OPTION2"
+BARCODE 512,76,"128M",35,0,180,1,3,"OPTIONZ"
+TEXT 512,20,"0",180,6,9,"OPTIONS1"
+TEXT 400,20,"0",180,6,9,"OPTION_A1"
+TEXT 618,53,"0",180,7,9,"OPTION5"
+TEXT 390,77,"0",180,7,11,"OPTION6"
+PRINT 1,1                                                                                    

@@ -1,0 +1,20 @@
+<xpml><page quantity='0' pitch='12.0 mm'></xpml>SIZE 81.5 mm, 12 mm
+DIRECTION 0,0
+REFERENCE 0,0
+OFFSET 0 mm
+SET PEEL OFF
+SET CUTTER OFF
+SET PARTIAL_CUTTER OFF
+<xpml></page></xpml><xpml><page quantity='1' pitch='12.0 mm'></xpml>SET TEAR ON
+CLS
+CODEPAGE 1252
+TEXT 645,88,"0",180,7,7,"OPTION1"
+TEXT 645,67,"0",180,7,7,"OPTION1"
+TEXT 642,46,"0",180,7,7,"OPTION1"
+TEXT 642,25,"0",180,7,7,"OPTION1"
+TEXT 530,84,"0",180,7,7,"OPTION1"
+TEXT 405,80,"0",180,7,7,"OPTION1"
+TEXT 399,25,"0",180,7,7,"OPTION1"
+BARCODE 399,58,"128M",31,0,180,1,2,"OPTIONZ"
+PRINT 1,1
+<xpml></page></xpml><xpml><end/></xpml>

@@ -1,0 +1,54 @@
+{
+  "name": "omgold-desktop",
+  "version": "1.0.0",
+  "description": "OmGold ERP — Jewellery & Gold Loan Desktop App",
+  "main": "main.js",
+  "scripts": {
+    "dev": "electron .",
+    "build": "electron-builder --win",
+    "build:portable": "electron-builder --win portable",
+    "build:nsis": "electron-builder --win nsis",
+    "pack": "electron-builder --dir",
+    "start": "electron ."
+  },
+  "build": {
+    "appId": "in.omgold.desktop",
+    "productName": "OmGold ERP",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "assets/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64", "ia32"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icon.ico",
+      "publisherName": "OmGold ERP"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "OmGold ERP"
+    },
+    "portable": {
+      "artifactName": "OmGold-ERP-Portable-${version}.exe"
+    }
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0"
+  }
+}

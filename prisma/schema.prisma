@@ -1,0 +1,1794 @@
+// Omunim Clone — Jewellery ERP + Gold Loan (Girvi) + Money Lending
+// Prisma schema (SQLite). All money/weight fields use Float for JSON-friendly serialization.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// ───────────────────────── Auth & Multi-tenant ─────────────────────────
+
+model User {
+  id           String   @id @default(cuid())
+  loginId      String   @unique
+  email        String?  @unique
+  passwordHash String
+  name         String
+  phone        String?
+  role         String   @default("staff") // admin | owner | staff
+  active       Boolean  @default(true)
+  avatarUrl    String?  @db.Text
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  userFirms     UserFirm[]
+  invoices      Invoice[]
+  loans         Loan[]
+  expenses      Expense[]
+  smsLogs       SmsLog[]
+  systemLogs    SystemLog[]
+  schemeEntries SchemeEntry[]
+  tasks         Task[]
+  orders        Order[]
+  quotations    Quotation[]
+  repairs       Repair[]
+  // biometric + access control
+  biometricHash String?
+  permissions   String?       @db.Text // CSV of allowed view keys; null = all
+  lastLoginAt   DateTime?
+  /// Set on every password change/reset. Sessions authenticated before it are revoked (src/lib/auth.ts jwt callback).
+  passwordChangedAt DateTime?
+  stockTallies StockTally[]
+  stockTallyScans StockTallyScan[]
+}
+
+model Firm {
+  id                String   @id @default(cuid())
+  code              String   @unique // short code like JBS, MADAAN
+  name              String
+  legalName         String?
+  gstin             String?
+  pan               String?
+  phone             String?
+  email             String?
+  address           String?  @db.Text
+  city              String?
+  state             String?
+  pincode           String?
+  currency          String   @default("INR")
+  gstEnabled        Boolean  @default(true)
+  cgstRate          Float    @default(1.5)
+  sgstRate          Float    @default(1.5)
+  igstRate          Float    @default(3.0)
+  hallmarking       Boolean  @default(true)
+  logoUrl           String?  @db.Text
+  active            Boolean  @default(true)
+  // oMunim add-ons: payment gateways, hardware, loyalty, e-invoicing
+  razorpayKeyId     String?
+  razorpayKeySecret String?
+  paytmMerchantId   String?
+  paytmMerchantKey  String?
+  phonepeMerchantId String?
+  phonepeSaltKey    String?
+  weighingScalePort String? // e.g. COM3 / /dev/ttyUSB0
+  weighingScaleBaud Int      @default(9600)
+  biometricEnabled  Boolean  @default(false)
+  loyaltyRate       Float    @default(1.0) // points earned per ₹100 spent
+  eInvoiceEnabled   Boolean  @default(false)
+  whatsappEnabled   Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  userFirms          UserFirm[]
+  customers          Customer[]
+  stockItems         StockItem[]
+  invoices           Invoice[]
+  loans              Loan[]
+  udhaars            Udhaar[]
+  udhaarPayments     UdhaarPayment[]
+  schemes            Scheme[]
+  expenses           Expense[]
+  goldRates          GoldRate[]
+  ledgerEntries      LedgerEntry[]
+  accounts           Account[]
+  settings           Setting[]
+  systemLogs         SystemLog[]
+  tasks              Task[]
+  orders             Order[]
+  quotations         Quotation[]
+  repairs            Repair[]
+  loyaltyPoints      LoyaltyPoint[]
+  hallmarkBatches    HallmarkBatch[]
+  meltBatches        MeltBatch[]
+  bankAccounts       BankAccount[]
+  bankTransactions   BankTransaction[]
+  bankStatementLines BankStatementLine[]
+  stones             Stone[]
+  stockTallies StockTally[]
+}
+
+model UserFirm {
+  id        String   @id @default(cuid())
+  userId    String
+  firmId    String
+  role      String   @default("staff") // owner | manager | staff
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  firm Firm @relation(fields: [firmId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, firmId])
+  @@index([firmId])
+}
+
+// ───────────────────────── People (Customers / Suppliers / Staff / Karigar / Money Lender) ─────────────────────────
+
+model Customer {
+  id                String    @id @default(cuid())
+  firmId            String
+  code              String? // C101 etc
+  type              String    @default("customer") // customer | supplier | staff | karigar | moneyLender | visitor
+  supplierType      String? // retailer | wholesaler | manufacturer | distributor (oMunim: supplierType)
+  title             String? // Mr | Mrs | Ms | M/S
+  firstName         String
+  lastName          String?
+  // Family
+  fatherSpouse      String?
+  fatherSpouseRel   String? // S/o | D/o | W/o | C/o | M/o
+  motherName        String?
+  spouseName        String?
+  spouseDob         DateTime?
+  // Personal
+  gender            String? // male | female | other
+  dob               DateTime?
+  maritalStatus     String?
+  anniversaryDate   DateTime?
+  caste             String?
+  qualification     String?
+  // Tax / ID
+  pan               String?
+  gstin             String?
+  taxNo             String?
+  aadhaar           String?
+  aadhaarVerified   Boolean   @default(false)
+  // Bank
+  bankName          String?
+  bankAccName       String?
+  bankAccNumber     String?
+  bankIfscCode      String?
+  // Finance
+  accountHeadId     String? // chart-of-accounts head, e.g. Sundry Debtors/Creditors (oMunim: accMainAccountId)
+  occupation        String?
+  monthlyIncome     String?
+  creditLimit       Float     @default(0)
+  openingBalance    Float     @default(0)
+  balanceType       String    @default("debit") // debit | credit
+  cashBalance       Float     @default(0)
+  cashBalanceType   String? // debit | credit
+  goldWeightBal     Float     @default(0)
+  goldWeightType    String? // gm | kg
+  goldBalanceType   String?
+  silverWeightBal   Float     @default(0)
+  silverWeightType  String?
+  silverBalanceType String?
+  // Nominee & staff
+  nomineeName       String?
+  nomineeRelation   String?
+  designation       String? // staff designation
+  loginId           String?
+  password          String?
+  // Contact
+  mobile            String?
+  altMobile         String?
+  phone             String?
+  email             String?
+  // Business
+  wastagePercent    Float?
+  wastageDays       Int?
+  wastageOccasion   String?
+  reference         String?
+  userGroup         String? // membership group
+  shopName          String?
+  // Shipping
+  shipFirstName     String?
+  shipLastName      String?
+  shipAddress       String?   @db.Text
+  shipGstin         String?
+  shipPan           String?
+  shipMobile        String?
+  shipCity          String?
+  shipState         String?
+  // Address
+  country           String?   @default("India")
+  state             String?
+  city              String?
+  village           String?
+  wardNo            String?
+  tehsil            String?
+  officeAddress     String?   @db.Text
+  address           String?   @db.Text
+  currAddress       String?   @db.Text
+  pincode           String?
+  otherInfo         String?
+  // Media
+  photoUrl          String?   @db.Text
+  photoUrl2         String?   @db.Text
+  photoUrl3         String?   @db.Text
+  photoUrl4         String?   @db.Text
+  fingerScanId      String?
+  loyaltyPoints     Int       @default(0)
+  active            Boolean   @default(true)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  firm             Firm           @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  invoices         Invoice[]
+  invoicesSold     Invoice[]      @relation("InvoiceSalesPerson")
+  loans            Loan[]
+  udhaars          Udhaar[]
+  schemeEntries    SchemeEntry[]
+  ledgerEntries    LedgerEntry[]
+  repairsAsCust    Repair[]       @relation("RepairCustomer")
+  repairsAsKarigar Repair[]       @relation("RepairKarigar")
+  loyaltyLedger    LoyaltyPoint[]
+  // KYC document storage
+  kycDocType       String? // aadhaar | pan | voter | driving | passport
+  kycDocNo         String?
+  kycDocUrl        String?        @db.Text
+
+  @@index([firmId, type])
+  // The customers list is ORDER BY createdAt DESC LIMIT 200 under a firmId filter. Without this,
+  // MySQL reads the firm's whole customer table and filesorts it: measured 70ms at 5,000 customers
+  // (omerp_perf_test), 0ms with it - the plan becomes a backward index scan that stops at 200.
+  @@index([firmId, createdAt])
+}
+
+// ───────────────────────── Stock / Inventory ─────────────────────────
+
+model StockItem {
+  id                   String    @id @default(cuid())
+  firmId               String
+  itemCode             String? // PG1, PS1, AX1, BX1
+  barcode              String? // HUID
+  hallmarkUid          String? // HALLMARK UID
+  category             String    @default("fine") // fine | imitation | raw | crystal | sterling
+  subType              String? // B1 | B2 | B3 | CAD | fashion
+  name                 String
+  metalType            String? // gold | silver | other
+  metalName            String? // free text (platinum / panchdhatu / brass); ONLY when metalType = 'other', NULL for gold and silver, never a copy of metalType
+  metalRate            Float? // metal rate at time of entry
+  gender               String? // male | female | kids | unisex
+  hsnCode              String?
+  brand                String?
+  seller               String?
+  counter              String?
+  bis                  String? // BIS mark
+  itemCategory         String? // ITEM CATEGORY
+  purity               String? // 22K, 24K, 18K
+  purityPercent        Float? // 91.6, 99.9
+  // LOT TOTALS: every weight and money column on this model (grossWeight, netWeight, fineWeight, making,
+  // amounts...) is the total for `qty` pieces, NEVER a per-piece figure. { qty: 10, grossWeight: 30 } = 30 g
+  // for the whole packet. Depended on by computeOmunimStock, /api/stock/summary and the partial-sale split
+  // in src/app/api/invoices/route.ts (~line 986), which scales these columns by sellQty/qty.
+  qty                  Int       @default(1)
+  grossWeight          Float     @default(0) // GS WT (lot total)
+  grossWeightUnit      String? // gm | kg | mg
+  lessWeight           Float     @default(0)
+  lessWeightUnit       String?
+  packetWeight         Float     @default(0)
+  packetWeightUnit     String?
+  netWeight            Float     @default(0) // NT WT
+  netWeightUnit        String?
+  tagWeight            Float     @default(0)
+  finalPurity          Float?
+  finalWeight          Float? // FN WT
+  finalFineWeight      Float? // row A "FFN WT" — fine weight after customer wastage
+  labourCharge         Float     @default(0) // LBR CHRG
+  makingCharge         Float     @default(0) // MKG CHRG
+  makingType           String? // per_gram | percent | fixed
+  wastagePercent       Float?
+  stoneWeight          Float?
+  stoneAmount          Float?
+  mrp                  Float?
+  costPrice            Float?
+  sellPrice            Float?
+  photoUrl             String?   @db.Text
+  // Three more photo slots — front / back / tag is how a counter photographs a piece, and the item
+  // panel's gallery already expects them. Same @db.Text column and the same downscale budget as
+  // photoUrl above; the boundary applies one photoUrlSchema to all four.
+  photoUrl2            String?   @db.Text
+  photoUrl3            String?   @db.Text
+  photoUrl4            String?   @db.Text
+  // Extra fields from oMunim
+  rfidNo               String? // RFID NO.
+  location             String? // LOCATION
+  modelNo              String? // MODEL NO
+  length               String? // LENGTH
+  color                String? // COLOR
+  size                 String? // SIZE
+  // Imitation-stock attributes (oMunim ADD IMITATION STOCK). An imitation piece is sold by the
+  // piece on its look, not by metal weight, so these carry the description a fine item carries in
+  // its purity and fine weight. WIDTH pairs with the existing LENGTH; POLISH is the plating finish;
+  // SP CODE is the supplier's own product code (distinct from itemCode, which is ours);
+  // SALES PACKAGE is what the piece ships in. expDate pairs with the existing mfgDate — imitation
+  // plating is dated stock.
+  shape                String? // SHAPE — an imitation piece's form (round, oval, geometric…)
+  width                String? // WIDTH
+  polish               String? // POLISH — gold-plated, rhodium, antique…
+  spCode               String? // S.P.CODE — the supplier's product code, not ours
+  salesPackage         String? // SALES PACKAGE
+  expDate              DateTime? // EXP. DATE
+  otherInfo            String? // row B "OTHER INFO"
+  totalHallmarkCharges Float? // TOT HMC
+  otherCharges         Float? // OTH CH
+  otherChargesType     String? // type for other charges
+  totalOtherCharges    Float? // TOT OTH CH
+  // oMunim's WHOLESALE STOCK / RETAIL STOCK switch, present on every one of its Add Stock panels
+  // and the split its stock reports are built around. Null means retail — the overwhelming default
+  // for a counter, and what every row predating this column is.
+  stockType            String? // retail | wholesale
+  ecommStatus          String? // E-COMM status
+  jewellersAppStatus   String? // Jewellers app status
+  totalTax             Float? // TOT TAX
+  details              String? // row C "DETAILS"
+  markUp               Float? // row C "MARK UP"
+  finalValuation       Float? // FINAL VALUTATION
+  fixedPriceStatus     String? // Fixed price status
+  customerWastage      Float? // CS WS
+  customerWastageWt    Float? // C.W WT
+  valueAdded           Float? // VAL ADD
+  valuation            Float? // VALUATION
+  // Making charge GST
+  makingCgstPercent    Float? // CGST % on making
+  makingCgstAmount     Float? // LAB CGST
+  makingSgstPercent    Float? // SGST % on making
+  makingSgstAmount     Float? // LAB SGST
+  makingIgstPercent    Float? // IGST % on making
+  makingIgstAmount     Float? // LAB IGST
+  // Total price GST
+  priceCgstPercent     Float? // CGST % on total
+  priceCgstAmount      Float? // CGST AMT
+  priceSgstPercent     Float? // SGST % on total
+  priceSgstAmount      Float? // SGST AMT
+  priceIgstPercent     Float? // IGST % on total
+  priceIgstAmount      Float? // IGST AMT
+  // Packet descriptions (5 rows)
+  packetDesc1          String?   @db.Text
+  packetQty1           Float?
+  packetWt1            Float?
+  packetTotalWt1       Float?
+  packetDesc2          String?   @db.Text
+  packetQty2           Float?
+  packetWt2            Float?
+  packetTotalWt2       Float?
+  packetDesc3          String?   @db.Text
+  packetQty3           Float?
+  packetWt3            Float?
+  packetTotalWt3       Float?
+  packetDesc4          String?   @db.Text
+  packetQty4           Float?
+  packetWt4            Float?
+  packetTotalWt4       Float?
+  packetDesc5          String?   @db.Text
+  packetQty5           Float?
+  packetWt5            Float?
+  packetTotalWt5       Float?
+  // Labour charge rows (5 rows)
+  labourQty1           Float?
+  labourChrg1          Float?
+  labourType1          String?
+  labourTotal1         Float?
+  labourQty2           Float?
+  labourChrg2          Float?
+  labourType2          String?
+  labourTotal2         Float?
+  labourQty3           Float?
+  labourChrg3          Float?
+  labourType3          String?
+  labourTotal3         Float?
+  labourQty4           Float?
+  labourChrg4          Float?
+  labourType4          String?
+  labourTotal4         Float?
+  labourQty5           Float?
+  labourChrg5          Float?
+  labourType5          String?
+  labourTotal5         Float?
+  totalLabourCharges   Float? // TOT LAB CH
+  status               String    @default("available") // available | sold | transferred | deleted | sent_for_hallmark | in_melt | melted
+  billDate             DateTime?
+  mfgDate              DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  firm           Firm            @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  invoiceItems   InvoiceItem[]
+  loanItems      LoanItem[]
+  quotationItems QuotationItem[]
+  stockTransfers StockTransfer[]
+  // Diamond certification (BIS / GIA / IGI)
+  diamondCertNo  String?
+  diamondCertLab String? // GIA | IGI | HRD | BIS
+  diamondCertUrl String?         @db.Text
+
+  // ── Stones: SUPERSEDED by the `stones Stone[]` relation below ──────────────────────────────
+  // These eleven scalars were the one-stone-per-item version of the stone sub-grid. An item can
+  // carry several stones of DIFFERENT families (4 diamonds + 2 rubies), and they cannot share one
+  // clarity, one colour grade or — the reason this had to change — one ₹/carat rate. They are kept
+  // as columns only so the migration is non-destructive; nothing writes them any more and the
+  // Add Stock form has stopped reading them. Drop them once no database in the field still has
+  // values here. Read `stones` instead.
+  //
+  // NOT superseded, still live and still written: diamondCertNo / diamondCertLab above. They are a
+  // denormalised snapshot of the FIRST certified stone, because the stock list badge
+  // (modules/stock.tsx), the item detail header (stock-item-detail.tsx), the sell screen
+  // (modules/sell.tsx) and the invoice line's stoneCertNo (api/invoices/route.ts) all read them
+  // directly. One writer — the stock route — keeps them in step with the child rows.
+  stoneId            String?
+  stoneName          String?
+  stoneClarity       String? // VVS1, VS2…
+  stoneColorGrade    String? // stone's own colour grade — NOT StockItem.color (the item's colour)
+  stoneSize          String?
+  stoneShape         String? // round, princess, emerald…
+  stoneOtherInfo     String?
+  stoneQty           Float?
+  stoneGrossWeightCt Float? // GS WT (CT) — carats, NOT grams (stoneWeight above is grams)
+  stoneRateCt        Float? // RATE (CT)
+  stoneSellRateCt    Float? // SELL RATE (CT)
+
+  stones             Stone[]
+
+  hallmarkBatchItems HallmarkBatchItem[]
+  // Melting/refining (below): meltBatchItems is the source-item side (this item was fed INTO a
+  // melt), meltResultOf is the produced-bullion side (this item IS the recovered lot). An item is
+  // never both — a source item is marked 'melted' (terminal) and cannot itself become a batch's
+  // result, and a result item is freshly created by the melt route, never pre-existing.
+  meltBatchItems     MeltBatchItem[]
+  meltResultOf       MeltBatch?          @relation("MeltResult")
+
+  @@unique([firmId, itemCode])
+  // Nullable-safe: MySQL permits multiple NULLs in a unique composite index (verified against
+  // omerp directly — two (firmId, NULL) rows insert cleanly), so items with no HUID/RFID yet
+  // (the common case) are unaffected. Only a real, non-null duplicate within the same firm is
+  // rejected — see be-inventory audit item 2.
+  @@unique([firmId, hallmarkUid])
+  @@unique([firmId, rfidNo])
+  @@index([firmId, category])
+  @@index([firmId, status])
+  // Same reason as Customer above: GET /api/stock is ORDER BY createdAt DESC LIMIT 300.
+  // Measured 60ms filesort at 10,000 items, 0ms as a backward index scan.
+  @@index([firmId, createdAt])
+  tallyScans StockTallyScan[]
+}
+
+// ───────────────────── Stones / diamonds on a stock item ─────────────────────
+// One row per stone, so an item can carry several of DIFFERENT families at once — 4 diamonds at
+// ₹2,00,000/ct plus 2 rubies at ₹8,000/ct — each with its own clarity, colour grade, shape,
+// certificate and rate. That is oMunim's own model (its Add Stock stone sub-grid is a repeating
+// row set), and it is why the eleven `stone*` scalars on StockItem could not survive: a single
+// blended ₹/carat across two stone families is not a rounding problem, it is a wrong number.
+//
+// DESCRIPTIVE, NOT PRICED — same rule the scalars carried, deliberately unchanged here. An item is
+// still priced from StockItem.stoneWeight (grams) and StockItem.stoneAmount (rupees), which is what
+// computeItemDetail() (src/lib/stock-calc.ts) reads and what the invoice line snapshots. `amount`
+// below is this stone's own carat × rate, stored so a report or a valuation dispute does not have
+// to recompute it — it is NOT summed into stoneAmount by the stock route. Making stone value part
+// of an item's price is a money-engine change that has to land in computeOmunimStock() and
+// computeItemDetail() together, with the finance gate on it; until then the two must not disagree.
+//
+// `seq` preserves the order the operator entered the stones in; the grid is read back by it.
+model Stone {
+  id          String   @id @default(cuid())
+  firmId      String
+  stockItemId String
+  seq         Int      @default(0)
+
+  name        String? // Diamond, Ruby, Emerald, CZ…
+  clarity     String? // typed, not an enum — grading differs by stone family
+  colorGrade  String? // the STONE's grade (D–Z for diamond), never StockItem.color
+  shape       String? // round, princess, emerald…
+  size        String? // "4.1 mm"
+  certNo      String?
+  certLab     String? // GIA | IGI | HRD | BIS | a local valuer
+  otherInfo   String?
+
+  qty         Float?
+  // The weight AS ENTERED, in `weightUnit`. The column keeps its original name so no data has to
+  // move; it is no longer carats-only. weightGrams below is the derived canonical figure — every
+  // calculation reads that, never this.
+  caratWeight Float? // weight as entered, in weightUnit
+  weightUnit  String? @default("CT") // CT | GM | MG | KG
+  weightGrams Float? // caratWeight converted to grams, stored so reports need not re-convert
+  rateCt      Float? // RATE, in rateUnit
+  rateUnit    String? @default("CT") // CT | GM | MG | KG | PP (per piece) | FX (fixed for the lot)
+  sellRateCt  Float? // SELL RATE, same unit convention as rateCt
+  amount      Float? // the row's value, computed from weight/rate/unit at entry time
+  /**
+   * "This stone is set INTO the piece, so its weight is inside the gross weight."
+   *
+   * Ticked, the stone's grams come off at STEP 1 and the metal is priced on what is left. Unticked
+   * (the default, and what every row written before this column did) the gross weight is treated as
+   * metal only — correct for a loose stone sold alongside, wrong for a mounted one.
+   */
+  deductFromGross Boolean @default(false)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  firm      Firm      @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  stockItem StockItem @relation(fields: [stockItemId], references: [id], onDelete: Cascade)
+
+  @@index([firmId])
+  @@index([stockItemId, seq])
+}
+
+// ───────────────────── Hallmarking send/receive lifecycle ─────────────────────
+// oMunim tracks BIS hallmarking as a lot-based send/receive workflow (audit item 3):
+// omCustHallMarkingSendStock.php / ...ReceiveStockDatatableList.php / ...Return.php. An item out
+// at the centre is not sellable or transferable — enforced for free by reusing StockItem.status
+// (a new 'sent_for_hallmark' value): both the invoice path (src/app/api/invoices/route.ts:428,
+// `status: 'available'` claim) and the transfer path (src/app/api/stock-transfer/route.ts:88-91,
+// same claim shape) already refuse to move a non-'available' item with a 409, so no change to
+// either off-limits file was needed for the guard to hold.
+model HallmarkBatch {
+  id         String   @id @default(cuid())
+  firmId     String
+  lotNumber  String // informational lot reference, e.g. HM12 — see itemCode's count+1 caveat (audit item 3 of the known-issues list); not a uniqueness guarantee
+  centreName String?
+  status     String   @default("sent") // sent | partial | received
+  note       String?  @db.Text
+  sentBy     String? // userId who sent the lot
+  sentAt     DateTime @default(now())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  firm  Firm                @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  items HallmarkBatchItem[]
+
+  @@index([firmId, status])
+}
+
+model HallmarkBatchItem {
+  id             String    @id @default(cuid())
+  batchId        String
+  itemId         String
+  status         String    @default("sent") // sent | received
+  hallmarkUid    String? // the actual 6-char BIS HUID assigned on receive
+  hallmarkingFee Float?
+  receivedAt     DateTime?
+  createdAt      DateTime  @default(now())
+
+  batch HallmarkBatch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  item  StockItem     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@index([batchId])
+  @@index([itemId])
+}
+
+// ───────────────────── Melting / refining ─────────────────────
+// oMunim's raw-metal flow (ogrmmeltassignformelt.php -> ogrmmelting.php -> omreadyformeltstoc.php):
+// several old/broken items are assigned to a melt lot, melted into ONE bullion bar at a recovered
+// purity, and the bar re-enters stock as a fresh StockItem. Two-step lifecycle, mirroring
+// HallmarkBatch's send/receive shape exactly: 'assigned' claims the source items out of 'available'
+// into 'in_melt' (same free 409 from the invoice/transfer guards, same reason as the hallmark note
+// above); 'melted' is terminal — a melted item does not come back, it is preserved as history
+// (status transition, never deleted) and its fine weight lives on in the one bar that replaced it.
+//
+// fineWeight on MeltBatchItem is a SNAPSHOT taken at assignment (same reasoning as SchemeEntry's
+// frozen bonusGrams in src/lib/scheme.ts): the source item's own StockItem row does not change
+// underneath the batch while it sits assigned, so the batch's fineWeightIn is exact even if
+// something else touched the item's other fields later (it can't — 'in_melt' blocks every mutation
+// path that matters).
+model MeltBatch {
+  id        String @id @default(cuid())
+  firmId    String
+  // Informational lot reference (e.g. ML1) — same not-a-uniqueness-guarantee caveat as
+  // HallmarkBatch.lotNumber (audit item 3 / count+1 race).
+  lotNumber String
+  metal     String // gold | silver — one metal per lot; see metalOf() in src/lib/accounting.ts
+  status    String @default("assigned") // assigned | melted
+
+  fineWeightIn  Float @default(0) // sum of source items' fine weight, at assignment
+  grossWeightIn Float @default(0)
+
+  // Set only on completion (PUT), by computeMeltResult() in src/lib/stock-calc.ts:
+  recoveredGrossWeight Float? // the bar as actually weighed
+  recoveredPurity      Float? // canonical percent (normalizePurityPercent)
+  recoveredFineWeight  Float?
+  lossFineWeight       Float? // fineWeightIn - recoveredFineWeight, never negative (enforced in route)
+  metalRate            Float? // INR per GRAM used to value the loss and cost the recovered bar
+  lossValue            Float? // lossFineWeight x metalRate, rounded once — only POSTED when the
+  // source items carried a cost basis to relieve (see route comment); always stored either way so
+  // the loss is never silently hidden even when it isn't posted.
+
+  resultItemId String?   @unique // the produced bullion StockItem, once melted
+  note         String?   @db.Text
+  assignedBy   String? // userId who assigned the lot
+  assignedAt   DateTime  @default(now())
+  completedAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  firm       Firm            @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  items      MeltBatchItem[]
+  resultItem StockItem?      @relation("MeltResult", fields: [resultItemId], references: [id])
+
+  @@index([firmId, status])
+}
+
+model MeltBatchItem {
+  id         String   @id @default(cuid())
+  batchId    String
+  itemId     String
+  fineWeight Float // snapshot at assignment — see model-level comment above
+  createdAt  DateTime @default(now())
+
+  batch MeltBatch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  item  StockItem @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@index([batchId])
+  @@index([itemId])
+}
+
+model StockTransfer {
+  id          String    @id @default(cuid())
+  firmId      String // source firm
+  itemCode    String? // legacy free-text item reference
+  itemId      String? // real FK to StockItem; nullable so legacy free-text rows survive
+  fromCounter String?
+  toCounter   String?
+  fromFirmId  String?
+  toFirmId    String?
+  status      String    @default("pending") // pending | approved | returned
+  userId      String? // who initiated the transfer
+  approvedBy  String?
+  approvedAt  DateTime?
+  note        String?   @db.Text
+  createdAt   DateTime  @default(now())
+
+  item StockItem? @relation(fields: [itemId], references: [id], onDelete: SetNull)
+
+  @@index([firmId, status])
+  @@index([itemId])
+}
+
+// ───────────────────────── Stock tally (physical stock-take) ─────────────────────────
+// A stock-take is a SESSION, not a flag on the stock row. oMunim stamps scan_date/scan_time onto
+// its stock table, which is why it has no history, cannot run two counters at once, and has a
+// "reset" that destroys data. Here a tally owns its scans; closing or discarding one never
+// touches StockItem.
+model StockTally {
+  id        String    @id @default(cuid())
+  firmId    String
+  // Optional filters that define the EXPECTED set. ALL NULLABLE on purpose: his items carry no
+  // counter and no location yet (14 items, 0 with either), so a tally with no filters means
+  // "every available piece in this firm". oMunim makes these required pickers; for him that
+  // would be two empty dropdowns blocking the whole screen.
+  counter   String?
+  location  String?
+  category  String?   // StockItem.category — fine | imitation | raw | crystal | sterling
+  startedAt DateTime  @default(now())
+  closedAt  DateTime?
+  status    String    @default("open") // open | closed | discarded
+  userId    String?
+  note      String?   @db.Text
+  // ── THE RESULT, FROZEN AT CLOSE ────────────────────────────────────────────────────────────
+  // This is NOT a cached balance (the project forbids those — see deriveLoan). A stock-take is a
+  // point-in-time physical FACT: recomputing February's tally against today's stock would
+  // silently rewrite history every time a piece sells. Null while the tally is open, when the
+  // figures are computed live from StockItem + scans instead.
+  expectedQty       Int?
+  expectedNetWeight Float?
+  countedQty        Int?
+  countedNetWeight  Float?
+  missingQty        Int?
+  missingNetWeight  Float?
+  extraCount        Int?
+  // Frozen at close alongside the qty/weight figures above, for the same reason and one more:
+  // VALUE and PIECE COUNTS cannot be recomputed later without lying. A closed tally rebuilt from
+  // live rows reported Rs 11,000.50 for a count that had recorded Rs 8,000.50, because a ring was
+  // re-priced in between (tests/api/stock-tally.spec.ts). `pieces` is the number of stock ROWS,
+  // `qty` above is the number of physical pieces - a lot of 5 bangles is 1 row and 5 pieces.
+  expectedPieces    Int?
+  countedPieces     Int?
+  missingPieces     Int?
+  expectedValue     Float?
+  countedValue      Float?
+  missingValue      Float?
+  // JSON array of StockItem ids that were short at close, so a past tally still NAMES the pieces
+  // it could not find. ponytail: TEXT column holds ~2,500 ids; past that the writer truncates and
+  // the counts above remain authoritative.
+  missingItemIds    String?   @db.Text
+
+  firm  Firm             @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  user  User?            @relation(fields: [userId], references: [id], onDelete: SetNull)
+  scans StockTallyScan[]
+
+  @@index([firmId, status])
+  @@index([firmId, startedAt])
+}
+
+model StockTallyScan {
+  id          String   @id @default(cuid())
+  tallyId     String
+  firmId      String
+  // Exactly what the scanner sent, trimmed and upper-cased. Matched against StockItem.barcode,
+  // rfidNo or itemCode — his pieces have only itemCode today (RG1, PG6…), and barcodes start
+  // appearing as he prints tags.
+  code        String
+  // Null = EXTRA: a tag that is not in this firm's books, or not inside this tally's filter.
+  stockItemId String?
+  // The SERVER clock, always. oMunim bakes the date into the page when it loads and gets every
+  // scan after midnight wrong.
+  scannedAt   DateTime @default(now())
+  source      String?  // keyboard | camera | rfid | manual
+  // WHO scanned this piece. One SystemLog row covers a whole batch, so without this column
+  // "which person counted this ring" is an inference from timestamps - and that is exactly the
+  // question that gets asked when gold is short. Nullable: rows written before this column
+  // existed have no answer, and pretending otherwise would be worse.
+  // No index: nothing queries scans by user; scans are read by tallyId (unique index).
+  userId      String?
+
+  tally StockTally @relation(fields: [tallyId], references: [id], onDelete: Cascade)
+  item  StockItem? @relation(fields: [stockItemId], references: [id], onDelete: SetNull)
+  user  User?      @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  // A double trigger on the gun, or a handheld flushing the same queued batch twice, must not
+  // double-count. Scan writes are idempotent on this pair.
+  @@unique([tallyId, code])
+  @@index([firmId, scannedAt])
+}
+
+// ───────────────────────── Sell / Invoicing ─────────────────────────
+
+// Monotonic per-(firm,type) invoice-number counter. Replaces deriving the next number from
+// Invoice.count(), which races under concurrent POSTs and reissues numbers after a soft-delete.
+// Allocated with an atomic `INSERT ... ON DUPLICATE KEY UPDATE seq = seq + 1` — see
+// allocateInvoiceNo() in src/app/api/invoices/route.ts.
+model InvoiceSequence {
+  firmId String
+  type   String // sale | purchase | urd — independent series, never shared
+  seq    Int    @default(0)
+
+  @@id([firmId, type])
+}
+
+model Invoice {
+  id                String    @id @default(cuid())
+  firmId            String
+  type              String    @default("sale") // sale | purchase | urd (purchase from unregistered seller)
+  invoiceNo         String
+  customerId        String?
+  customerName      String
+  customerMobile    String?
+  userId            String?
+  invoiceDate       DateTime  @default(now())
+  previousAmount    Float     @default(0)
+  goldRate          Float?
+  subtotal          Float     @default(0)
+  discount          Float     @default(0)
+  // The figure the GST return is filed on, and the amount credited to Sales Revenue. STORED, not
+  // re-derived: `subtotal - discount + metalAmount` is only the taxable value in tax-EXCLUSIVE
+  // mode. Under taxInclusive the tax was extracted out of those same amounts, so that formula
+  // overstates revenue — the ledger's own double-entry guard caught it ("debits ₹50000.00 vs
+  // credits ₹51456.31"). 0 on rows written before this column existed, every one of which is
+  // exclusive, so readers fall back to the old formula for those.
+  taxableValue      Float     @default(0)
+  rofAmount         Float     @default(0) // round off
+  cgst              Float     @default(0)
+  sgst              Float     @default(0)
+  igst              Float     @default(0)
+  totalAmount       Float     @default(0)
+  metalAmount       Float     @default(0)
+  amountByCash      Float     @default(0)
+  amountByCard      Float     @default(0)
+  amountByUPI       Float     @default(0)
+  amountByCheque    Float     @default(0)
+  amountByGold      Float     @default(0)
+  paymentMode       String    @default("cash") // cash | card | upi | cheque | gold | mixed
+  // Owner override: a memo / dummy bill that must NOT move live stock. Default true, so every
+  // invoice ever written and every caller that does not know about this behaves exactly as before.
+  // When false the sale skips BOTH the stock status change AND the COGS relief — you cannot
+  // relieve the cost of stock you did not relieve, and doing one without the other overstates
+  // gross profit. Stored on the row so a stock discrepancy can be traced back to the bill that
+  // was deliberately not counted.
+  updateInventory   Boolean   @default(true)
+  // oMunim's "TAX BY VAL". False (default) = tax added on top of the entered amounts; true = the
+  // entered amounts already contained the tax and the taxable value was worked back out of them.
+  // Stored because it changes what taxableValue MEANS on this row: a bill reopened or reprinted
+  // must show the same split it was raised with, and the GST report is filed on that figure.
+  taxInclusive      Boolean   @default(false)
+  status            String    @default("completed") // completed | returned | deleted
+  note              String?   @db.Text
+  // Registered-supplier purchase detail (type='purchase' only) — THEIR bill reference, never ours.
+  // Previously folded into `note` as free text (unqueryable, unprintable as its own line — the same
+  // "hidden in a paragraph" pattern the oMunim hallmark-charge defect follows). First-class now so
+  // GSTR-2B reconciliation and an aging-by-due-date report can actually query on it.
+  supplierBillNo    String?
+  supplierBillDate  DateTime?
+  supplierDueDate   DateTime? // when payment is due to the supplier — drives a payables-aging view
+  paymentTerms      String? // e.g. "Net 30", "Advance", free text — not enumerated, terms vary too much by supplier
+  // Legal/registered billing name for the tax invoice, when it differs from the party's saved
+  // display name (e.g. proprietor's name on the customer/supplier record vs the firm name GSTR-2B
+  // expects). Optional; falls back to customerName when unset.
+  billingName       String?
+  // oMunim add-ons: bhav cut (old-gold exchange), loyalty, e-invoicing, whatsapp
+  oldGoldWeight     Float     @default(0) // weight of old jewellery taken in exchange
+  oldGoldValue      Float     @default(0) // value paid for old gold (metal-metal)
+  // The PURITY and RATE the shop actually quoted the customer to their face for the old metal taken
+  // in exchange — the two numbers a dispute turns on. oldGoldRate is AUTHORITATIVE (same convention
+  // as Invoice.goldRate: INR per 10 gram) and is what oldGoldValue above is computed FROM
+  // (computeInvoiceTotals in src/lib/gst.ts: oldGoldValue = oldGoldWeight * oldGoldRate / 10) — never
+  // the other way round. The print sheet used to show a rate DERIVED as oldGoldValue ÷ oldGoldWeight,
+  // explicitly labelled as derived, because this column did not exist; now it can print the real
+  // quoted figure directly instead. NULL on every invoice created before this field existed.
+  oldGoldPurity     String?
+  oldGoldRate       Float?
+  bhavCut           Float     @default(0) // rate cut / deduction applied on old gold
+  // REPEATING old-metal-receive rows: the customer may hand over several pieces of mixed metal
+  // (gold, silver, alloy, stone) against one bill. JSON text holding an ordered array, NOT a child
+  // table — same reasoning as InvoiceItem.stones (see the comment there): the rows are only ever
+  // read together with their parent invoice and never queried or aggregated across invoices on
+  // their own, so a table + relation would be cost with no reader. Shape (engine and UI both build
+  // to this; do not re-derive it):
+  //   type OldMetalRow = {
+  //     type: 'gold' | 'silver' | 'alloy' | 'stone'
+  //     description?: string
+  //     name?: string        // what the customer called the piece / whose it is — free text
+  //     grossWeight: number  // grams
+  //     lessWeight: number   // grams (net = gross - less: DERIVED, never stored)
+  //     tunch?: number       // purity %, 0-100 — RECORDED, deliberately not multiplied into price
+  //     rate?: number        // gold: INR per 10 GRAM. silver: INR per KILOGRAM. undefined for alloy/stone
+  //     flatValue?: number   // alloy/stone ONLY: flat agreed rupee value (they have no metal rate)
+  //   }
+  // SUPPLEMENTS, does not replace, oldGoldWeight/oldGoldValue/oldGoldRate/oldGoldPurity/bhavCut above:
+  // those stay authoritative for the money and for every invoice written before this column
+  // existed. When oldMetalRows is set: oldGoldValue = the engine's total net value across rows,
+  // oldGoldWeight = sum of row net weights, and oldGoldRate/oldGoldPurity carry that row's figures
+  // when there is exactly ONE row, else NULL (no single rate exists for a mixed gold+silver exchange).
+  // UNITS TRAP: silver's rate is per KILOGRAM, gold's per 10 GRAM — a 100x error made in both
+  // directions on this project before. ratePerGram() in src/lib/stock-calc.ts is the ONLY place
+  // that conversion may happen; never divide by 10 or 1000 anywhere else.
+  // tunch is recorded and NOT priced: the rate the shop quotes is already the agreed rate for the
+  // metal as received. (oMunim computes purity and then silently ignores it, pricing 22K and 24K
+  // identically; ours is an explicit, stated contract, not a silent drop.)
+  // Old metal is a PAYMENT the customer settles the bill with — it is NEVER part of taxableValue
+  // (see src/lib/gst.ts). NULL on every invoice created before this column existed.
+  oldMetalRows      String?   @db.Text
+  loyaltyRedeemed   Float     @default(0) // ₹ value redeemed via loyalty points
+  loyaltyEarned     Int       @default(0) // points earned on this invoice
+  // Who actually SOLD the piece — distinct from `userId` (whoever keyed the bill at the counter,
+  // which on a floor with commission-driven staff need not be the same person). Bare-pointer +
+  // snapshot pair, same shape as customerId/customerName above: salesPersonId for reporting/
+  // commission queries, salesPersonName + staffCode frozen at billing time so a later name change or
+  // staff-code reassignment never rewrites an already-issued bill's history. staffCode mirrors the
+  // linked staff Customer row's own `code` column. Merges oMunim's separate "STAFF NAME" and "SALES
+  // PERSON NAME" columns into one identity — on this app staff ARE Customer rows (type='staff') and
+  // the same person keys and sells on a small-shop floor; splitting them was judged not worth a
+  // second, almost-always-identical pointer.
+  salesPersonId     String?
+  salesPersonName   String?
+  staffCode         String?
+  // Free text, not a modelled entity — no Counter model exists yet, same convention as
+  // StockItem.counter.
+  counterName       String?
+  // Set when this invoice settles a matured/closed scheme redemption — the reverse pointer to
+  // PATCH /api/schemes/entries/[id]'s own `invoiceId` (that route requires the invoice to already
+  // exist before it redeems, so the link is written back here by the client once both calls
+  // complete). Bare pointer: SchemeEntry is be-lending's model, same convention as
+  // Quotation.convertedInvoiceId. LINK ONLY — see be-sales-gst worklog entry for why the money side
+  // (settling this invoice's balance against Customer Advances rather than Cash) was not wired here:
+  // that needs a new tender type across computeInvoiceTotals/buildLedgerEntries and coordination
+  // with be-lending's redeem route, which is materially larger than a column.
+  schemeEntryId     String?
+  // GST e-Invoicing
+  irn               String? // Invoice Reference Number (IRN)
+  ackNo             String? // IRN acknowledgement number
+  ackDate           DateTime?
+  qrUrl             String?   @db.Text // signed QR code URL
+  eInvoiceStatus    String? // pending | generated | cancelled | failed
+  whatsappSent      Boolean   @default(false)
+  // Sale/purchase return (credit note, s.34 CGST Act). type is 'sale-return' | 'purchase-return' on
+  // the return document itself; returnOfInvoiceId links it back to the original, immutable invoice.
+  // The original invoice is never edited by a return — see src/app/api/invoices/return/route.ts.
+  returnOfInvoiceId String?
+  returnReason      String?   @db.Text
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  firm        Firm          @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  customer    Customer?     @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  user        User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+  salesPerson Customer?     @relation("InvoiceSalesPerson", fields: [salesPersonId], references: [id], onDelete: SetNull)
+  items       InvoiceItem[]
+
+  @@unique([firmId, invoiceNo])
+  @@index([firmId, invoiceDate])
+  @@index([firmId, type, invoiceDate])
+  @@index([customerId])
+  @@index([userId])
+  @@index([returnOfInvoiceId])
+  @@index([salesPersonId])
+  @@index([schemeEntryId])
+}
+
+model InvoiceItem {
+  id             String   @id @default(cuid())
+  invoiceId      String
+  stockItemId    String?
+  itemCode       String?
+  name           String
+  hsnCode        String?
+  purity         String?
+  // Six-character BIS Hallmark UID, mandatory on a hallmarked gold article's invoice since April
+  // 2023. A SNAPSHOT of StockItem.hallmarkUid taken at the moment of sale (filled in server-side
+  // from the linked stock row when the client leaves it blank — same "fill the gap, never override
+  // what the client sent" rule the route already applies to grossWeight/stoneWeight/hsnCode above),
+  // never a live join: the stock row can be edited, returned or re-tagged after the bill prints, and
+  // a tax invoice must say what was sold on the day it was sold. NULL on a line with no stock link
+  // (manual/purchase entry) or an item that was never hallmarked.
+  huid           String?
+  grossWeight    Float    @default(0)
+  netWeight      Float    @default(0)
+  stoneWeight    Float?
+  stoneAmount    Float?
+  // Certificate number for a certified stone (GIA/IGI/HRD/BIS etc.) — same snapshot-from-stock rule
+  // as huid above (StockItem.diamondCertNo). Judged the one stone/diamond detail worth a column:
+  // stoneWeight/stoneAmount already carry the composite-supply weight and value GST needs, and a
+  // buyer's real interest (and resale value) is the certificate this number looks up, not a
+  // duplicated rate/qty/colour/clarity printed on every bill line — see be-sales-gst worklog entry.
+  stoneCertNo    String?
+  // Every stone/diamond sold on this line, as a JSON SNAPSHOT of model Stone's field set:
+  // { name, clarity, colorGrade, shape, size, certNo, certLab, otherInfo, qty, caratWeight,
+  //   weightUnit (CT|GM|MG|KG), weightGrams, rateCt, rateUnit (CT|GM|MG|KG|PP|FX), sellRateCt,
+  //   amount, deductFromGross }[]. weightGrams is the canonical weight every calculation reads,
+  // never caratWeight — same rule model Stone states. weightGrams/amount/the sellRateCt-based sale
+  // value are derived SERVER-SIDE and never taken from the client, exactly like parseStones() in
+  // src/app/api/stock/route.ts.
+  //
+  // JSON text, not a child table, for the same reason as huid above: an invoice line is a legal
+  // record that must freeze what was sold on the day it was sold, never point at a Stone row that
+  // stock can go on editing, re-tagging or returning. A child table would also need its own firmId,
+  // its own indexes, and `include: { stones: true }` added at every one of the ~8 places an
+  // invoice's items are read (GET, the sell screen's view dialog, print, returns, e-invoice); a
+  // snapshot column travels with the row for free and can't leak across firms because it isn't a
+  // joinable table at all. Loan.interestConvention (String? @db.Text) is the existing precedent for
+  // "structured data, frozen as JSON, never queried relationally".
+  //
+  // ponytail: this puts "which invoices sold certificate X" behind a JSON_EXTRACT — the primary
+  // certificate stays queryable as the plain stoneCertNo scalar above, which is what the bill prints
+  // and what a lookup would use today. Promote to a child table only once a real report needs to
+  // query per-stone.
+  stones         String?  @db.Text
+  makingCharge   Float    @default(0)
+  wastagePercent Float?
+  rate           Float    @default(0)
+  amount         Float    @default(0)
+  // ── The rest of the line, as the counter actually entered it ──────────────────────────────
+  // A bill has to be able to reproduce its own arithmetic months later: a return, a dispute or a
+  // re-print that can only show gross and net cannot explain how the amount was reached. These
+  // mirror the Add Stock entry fields and the oMunim billing row. All nullable, all additive —
+  // every invoice already written is unaffected.
+  metalType      String? // gold | silver | other
+  // Free text (platinum / panchdhatu / brass), used ONLY when metalType = 'other'; NULL for gold and silver, never a
+  // duplicate of metalType. A SNAPSHOT taken at the moment of sale, exactly like huid above: a tax invoice must say what
+  // was sold on the day it was sold, and the stock row can be re-tagged afterwards.
+  metalName      String?
+  itemCategory   String?
+  size           String?
+  qty            Int      @default(1)
+  lessWeight     Float?
+  packetWeight   Float?
+  tagWeight      Float?
+  /** Customer wastage: the WEIGHT the wastage % came to, kept beside the % it came from. */
+  cwWeight       Float?
+  /** Value addition, as a percent and the rupee figure it produced. */
+  valueAddPct    Float?
+  valueAddAmount Float?
+  /** Per-line discount — the percent asked for and the rupees it worked out to. */
+  discountPct    Float?
+  discountAmount Float?
+  /** Charges that are neither making nor labour (polish, rhodium, certification). */
+  otherCharges   Float?
+  markUp         Float?
+  counterNo      String?
+  length         String?
+  modelNo        String?
+  otherInfo      String?
+  cgst           Float    @default(0)
+  sgst           Float    @default(0)
+  igst           Float    @default(0)
+  total          Float    @default(0)
+  // Set only on a return-document's own line items: points at the ORIGINAL InvoiceItem being
+  // returned, so a line can never be returned twice (see return route's already-returned check).
+  returnOfItemId String?
+  createdAt      DateTime @default(now())
+
+  invoice   Invoice    @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  stockItem StockItem? @relation(fields: [stockItemId], references: [id], onDelete: SetNull)
+
+  @@index([invoiceId])
+  @@index([stockItemId])
+  @@index([returnOfItemId])
+}
+
+// ───────────────────────── Gold Loan (Girvi) ─────────────────────────
+
+model Loan {
+  id                   String    @id @default(cuid())
+  firmId               String
+  loanNo               String // A101, SAB110
+  customerId           String?
+  customerName         String
+  customerMobile       String?
+  userId               String?
+  loanDate             DateTime  @default(now())
+  loanType             String    @default("secured") // secured | unsecured
+  principalAmount      Float     @default(0)
+  interestRate         Float     @default(2) // % per month
+  interestType         String    @default("monthly") // monthly | yearly | simple
+  // The interest CONVENTION that priced this loan, as JSON (src/lib/interest.ts InterestConvention).
+  // NULL = the default convention, which is every loan written before the convention engine existed
+  // and is why none of them moved. Resolved ONCE at creation and never re-read from firm settings:
+  // a shop that changes its policy next year must not silently re-price a live pledge.
+  interestConvention   String?   @db.Text
+  timePeriod           Int? // months
+  dueDate              DateTime?
+  status               String    @default("active") // active | released | auctioned | loss | transferred | tally
+  wardNo               String?
+  village              String?
+  city                 String?
+  // Money Lenders Act register references. Bare ids, not FKs: ex/tr may name a lender OUTSIDE this
+  // installation (the previous pawnbroker a pledge was transferred from), which no Firm row can
+  // hold. When the value matches a Firm the UI resolves the name; otherwise it prints as typed.
+  exFirmId             String? // existing firm  — who held the pledge before us
+  trFirmId             String? // transfer firm  — who we transferred it to
+  mlFirmId             String? // money lender firm — the licensed lender the loan is booked under
+  // Namuna 15 clause (11): where the pledged goods are physically kept.
+  pledgePlace          String? // business | storage | house
+  // ── PHYSICAL CUSTODY (oMunim LOAN/PACKET NO. · SELECT BOX · LOAN LOCKER NO.) ──────────────────
+  // Where the ornaments physically are. A shop with 300 live pledges prints a packet tag and then
+  // has to find the packet again; none of this is money, none of it is derived, all of it is text.
+  // boxNo can be auto-assigned at creation from Setting['girvi.boxLocation'] (amount band + FY).
+  packetNo             String?
+  boxNo                String?
+  lockerNo             String?
+  // oMunim JOINT LOAN SR NO. — the serial the paper joint-loan register uses. A free reference, not
+  // a link: the co-borrowers' own loans may sit in another firm or predate this installation.
+  jointLoanNo          String?
+  // One-off fee charged at disbursal and DEDUCTED from the cash paid out (oMunim ADD NEW LOAN:
+  // WITH PROCESSING AMT). Recorded for the register; the money itself is in the disbursal voucher.
+  processingFee        Float?
+  // ── RE-PLEDGE TO A FINANCIER (oMunim TRANSFERED LOANS / MONEY LENDERS LOANS) ──────────────────
+  // The shop borrows against gold a customer pledged to it. The customer's loan REMAINS our asset
+  // (Loans Given) and we take on a liability (Financier Loans Payable): two interest streams run on
+  // the same physical ornaments at two rates, and the spread is the shop's margin. They are never
+  // netted. Loan.status stays 'active' — the customer can still pay and still release.
+  //
+  // These four columns are the financier leg's BASIS, exactly as loanDate/principalAmount/
+  // interestRate/interestConvention are the customer leg's. No balance is stored on either side:
+  // deriveTransfer() replays the stream='out' LoanTransaction rows through the same engine.
+  transferDate         DateTime?
+  transferPrincipal    Float? // what the financier advanced us (oMunim ototalAmount base)
+  transferRate         Float? // % per month the financier charges us
+  transferConvention   String?   @db.Text // frozen at re-pledge, never re-read from settings
+  transferStatus       String? // NULL = never re-pledged | active = still owed | redeemed
+  transferRedeemedDate DateTime?
+  transferVoucherId    String? // the re-pledge receipt voucher, for audit and reversal
+  note                 String?   @db.Text
+  releasedDate         DateTime?
+  releasedAmount       Float?
+  totalInterest        Float?
+  totalAmount          Float?
+  // Terminal auction record (status = auctioned | loss). Summaries of a settled, dated event —
+  // NOT a live balance: the outstanding is always replayed from LoanTransaction (src/lib/interest.ts).
+  auctionDate          DateTime?
+  auctionAmount        Float? // gross sale proceeds of the pledge
+  auctionCharges       Float? // auctioneer / advertising / handling, recovered out of the proceeds
+  // SIGNED, and that is the point: > 0 is a surplus the pledgor is legally owed back (posted as a
+  // liability), < 0 is a shortfall written off (posted as an expense). oMunim's callAuction stores
+  // Math.abs() of this and tells the two apart only by the text colour.
+  auctionSurplus       Float?
+  photoUrl             String?   @db.Text
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  firm         Firm              @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  customer     Customer?         @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  user         User?             @relation(fields: [userId], references: [id], onDelete: SetNull)
+  items        LoanItem[]
+  transactions LoanTransaction[]
+
+  @@index([firmId, status])
+  @@index([firmId, loanDate])
+  @@index([customerId])
+  @@index([userId])
+  // The four transfer reports (TRANSFERED / UNSETTLED / UN-RELEASED / MONEY LENDERS) all filter on
+  // this first; without it they are a full table scan of the pledge book.
+  @@index([firmId, transferStatus])
+}
+
+model LoanItem {
+  id             String   @id @default(cuid())
+  loanId         String
+  stockItemId    String?
+  name           String
+  purity         String?
+  grossWeight    Float    @default(0)
+  netWeight      Float    @default(0)
+  stoneWeight    Float?
+  estimatedValue Float    @default(0)
+  photoUrl       String?  @db.Text
+  createdAt      DateTime @default(now())
+
+  loan      Loan       @relation(fields: [loanId], references: [id], onDelete: Cascade)
+  stockItem StockItem? @relation(fields: [stockItemId], references: [id], onDelete: SetNull)
+
+  @@index([loanId])
+  @@index([stockItemId])
+}
+
+model LoanTransaction {
+  id                 String   @id @default(cuid())
+  loanId             String
+  firmId             String // table was empty at migration time; NOT NULL is safe (see Tier2 migration)
+  userId             String? // who posted this payment
+  // part_payment | release        receipts, applied interest-first
+  // topup                         further principal advanced on the live pledge (amount = advance)
+  // auction                       terminal settlement: amount = recovery credited to the loan,
+  //                               discount = the unrecoverable remainder written off
+  // reversal                      mirrors an earlier row via reversalOfId; the replay drops both
+  // transfer_payment | transfer_redeem   stream='out': what we paid the FINANCIER, interest-first
+  type               String
+  // WHICH LEG OF THE PLEDGE this row belongs to:
+  //   'in'  (default, and every row written before re-pledging existed) = the customer's loan to us
+  //   'out'                                                            = our borrowing from the financier
+  // The replay filters on it (src/lib/interest.ts ofStream), so an out-stream row can never be
+  // mistaken for a customer receipt and pay down the customer's balance.
+  stream             String   @default("in")
+  amount             Float // gross amount received
+  principalComponent Float    @default(0)
+  interestComponent  Float    @default(0)
+  discount           Float    @default(0)
+  // Custody / handling collected ALONGSIDE this receipt (oMunim LOAN CUSTODY CHARGE). Deliberately
+  // NOT part of `amount`: it is the shop's fee income, never applied to principal or interest, so
+  // the replay must not see it. Same shape as auction charges.
+  charges            Float    @default(0)
+  paymentMode        String   @default("cash")
+  reversalOfId       String? // id of the LoanTransaction this reverses
+  voucherId          String? // links this payment to its LedgerEntry voucher
+  date               DateTime @default(now())
+  note               String?  @db.Text
+  createdAt          DateTime @default(now())
+
+  loan Loan @relation(fields: [loanId], references: [id], onDelete: Cascade)
+
+  @@index([loanId])
+  @@index([firmId])
+}
+
+// ───────────────────────── Udhaar (Credit/Debit Money Lending) ─────────────────────────
+
+model Udhaar {
+  id              String    @id @default(cuid())
+  firmId          String
+  customerId      String?
+  customerName    String
+  customerMobile  String?
+  village         String?
+  type            String    @default("credit") // credit (given) | debit (received) | advance
+  transactionType String    @default("cash") // cash | bank | cheque
+  amount          Float     @default(0)
+  description     String?   @db.Text
+  dueDate         DateTime?
+  status          String    @default("active") // active | settled | partial
+  settledAmount   Float     @default(0)
+  /// METAL UDHAAR. NULL = an ordinary MONEY debt (amount/settledAmount, rupees, posted to the
+  /// ledger). 'gold' | 'silver' = the debt is in GRAMS ("you owe me 10 g"): amount/settledAmount
+  /// stay 0 and the position lives in grams/settledGrams. A metal row is deliberately NOT posted
+  /// to the ledger - see the header of src/app/api/udhaar/route.ts for why.
+  metal           String?
+  grams           Float     @default(0)
+  settledGrams    Float     @default(0)
+  /// % in the unit named by interestType. NULL = this udhaar bears NO interest - which is every
+  /// row written before this migration, and stays that way forever.
+  interestRate       Float?
+  /// 'days' | 'monthly' | 'annually' - the unit interestRate is quoted in (oMunim's INTEREST TYPE).
+  interestType       String?
+  /// Interest runs from here. NULL = from createdAt.
+  interestStartDate  DateTime?
+  /// Accrual STOPS here. NULL = open-ended.
+  interestEndDate    DateTime?
+  /// The interest convention that PRICED this udhaar, frozen as JSON at creation - exactly like
+  /// Loan.interestConvention. Never re-read the firm's current setting for a live row.
+  interestConvention String?   @db.Text
+  /// Installment plan. Both set together or both NULL. Interval in days (30 = monthly, 15 =
+  /// fortnightly, 7 = weekly); occurrences = how many installments.
+  emiIntervalDays    Int?
+  emiOccurrences     Int?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  firm     Firm      @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  customer Customer? @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  payments UdhaarPayment[]
+
+  @@index([firmId])
+  @@index([customerId])
+  // GET /api/udhaar is ORDER BY createdAt DESC LIMIT 300; @@index([firmId]) alone leaves a filesort.
+  @@index([firmId, createdAt])
+}
+
+/// Dated receipts against an Udhaar. Field names deliberately mirror LoanTransaction / LoanTxnLike
+/// (src/lib/interest.ts) so deriveLoan() can replay these rows with no adapter.
+model UdhaarPayment {
+  id           String   @id @default(cuid())
+  firmId       String
+  udhaarId     String
+  date         DateTime
+  amount       Float    @default(0)
+  /// 'part_payment' | 'settlement'. Never 'topup' - an udhaar does not take further advances.
+  type         String   @default("part_payment")
+  /// THE SPLIT THAT WAS ACTUALLY POSTED, on the day it was posted. These are a RECORD OF HISTORY,
+  /// not a derived balance, so they do not break the "balances derived, never stored" rule: they
+  /// are the exact figures splitPayment() handed to the two ledger legs of this receipt's voucher
+  /// (Cr Sundry Debtors principalComponent / Cr Interest Income interestComponent). Re-deriving
+  /// them later from today's position would let the printed history drift from the ledger the
+  /// moment a receipt is reversed or back-dated. LoanTransaction carries the same pair for the
+  /// same reason - do not "fix" this by deleting them.
+  interestComponent  Float @default(0)
+  principalComponent Float @default(0)
+  paymentMode  String   @default("cash") // cash | bank | cheque | upi
+  note         String?  @db.Text
+  /// The balanced voucher this receipt posted, for reversal.
+  voucherId    String?
+  /// A reversal cancels both itself and the row it points at - same rule as LoanTransaction.
+  reversalOfId String?
+  userId       String?
+  createdAt    DateTime @default(now())
+
+  firm   Firm   @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  udhaar Udhaar @relation(fields: [udhaarId], references: [id], onDelete: Cascade)
+
+  @@index([udhaarId, date])
+  @@index([firmId, date])
+  @@index([firmId, voucherId])
+}
+
+// ───────────────────────── Schemes (Gold savings / Kitty) ─────────────────────────
+
+model Scheme {
+  id                String   @id @default(cuid())
+  firmId            String
+  name              String
+  /// cash | gold | silver. A 'gold'/'silver' scheme is METAL-DENOMINATED: every instalment buys
+  /// grams at the rate of the day and maturity values the accumulated grams at the maturity-day
+  /// rate. The metal IS the type - a weight scheme with no named metal cannot be valued or posted.
+  type              String   @default("cash")
+  groupName         String?
+  emiAmount         Float    @default(0)
+  durationMonths    Int      @default(11)
+  totalInstallments Int      @default(11)
+  bonusMonths       Int      @default(1)
+  minAmount         Float?
+  maxAmount         Float?
+  interestRate      Float?
+  description       String?  @db.Text
+  active            Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  firm    Firm          @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  entries SchemeEntry[]
+
+  @@index([firmId])
+}
+
+model SchemeEntry {
+  id                 String    @id @default(cuid())
+  schemeId           String
+  customerId         String?
+  customerName       String
+  customerMobile     String?
+  userId             String?
+  startDate          DateTime  @default(now())
+  emiAmount          Float
+  /// Terms FROZEN at enrolment - editing the parent Scheme must never change what a subscriber signed.
+  /// That includes `type`: flipping the parent Scheme from cash to gold must not re-denominate a
+  /// subscription somebody already signed.
+  type               String    @default("cash") // cash | gold | silver
+  totalInstallments  Int       @default(11)
+  /// CASH schemes: the bonus, in rupees. Always 0 on a weight scheme.
+  bonusAmount        Float     @default(0)
+  /// WEIGHT schemes: the bonus, in GRAMS, frozen at enrolment as bonusMonths x emiAmount / bonusRate.
+  /// Exactly one of bonusAmount / bonusGrams is ever non-zero, so the unit of the bonus is never a
+  /// question at the counter. Always 0 on a cash scheme.
+  bonusGrams         Float     @default(0)
+  /// The metal rate (INR per GRAM) bonusGrams was frozen at. Audit of a figure customers dispute.
+  bonusRate          Float?
+  maturityDate       DateTime?
+  /// Deduction applied on early exit. Explicit and visible - never a silent haircut.
+  earlyExitDeduction Float     @default(0)
+  closedDate         DateTime?
+  /// Set on redemption: the sale invoice the maturity value was applied to.
+  invoiceId          String?
+  /// DEPRECATED caches - never written, never read. paid/totalPaid are derived from
+  /// SchemeInstallment rows by src/lib/scheme.ts. Drop once every reader is off them.
+  paidInstallments   Int       @default(0)
+  totalPaid          Float     @default(0)
+  status             String    @default("active") // active | completed | closed | redeemed
+  nomineeName        String?
+  nomineeRelation    String?
+  otherInfo          String?
+  payInfo            String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  scheme       Scheme              @relation(fields: [schemeId], references: [id], onDelete: Cascade)
+  customer     Customer?           @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  user         User?               @relation(fields: [userId], references: [id], onDelete: SetNull)
+  installments SchemeInstallment[]
+
+  @@index([schemeId])
+  @@index([customerId])
+  @@index([userId])
+}
+
+model SchemeInstallment {
+  id            String   @id @default(cuid())
+  entryId       String
+  installmentNo Int
+  amount        Float
+  /// WEIGHT schemes: the metal rate of the day, INR per GRAM (never per 10g), and the grams this
+  /// receipt bought = amount / metalRate, stored UNROUNDED. Rounding grams to 3dp per receipt
+  /// compounds across 11 instalments; 3dp is a display precision, not a storage one. NULL on a
+  /// cash scheme.
+  metalRate     Float?
+  grams         Float?
+  paidDate      DateTime @default(now())
+  paymentMode   String   @default("cash")
+  note          String?  @db.Text
+  /// The balanced ledger voucher this receipt posted (src/lib/ledger.ts).
+  voucherId     String?
+  createdAt     DateTime @default(now())
+
+  entry SchemeEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+
+  @@unique([entryId, installmentNo])
+  @@index([entryId])
+}
+
+// ───────────────────────── Expenses ─────────────────────────
+
+model Expense {
+  id          String   @id @default(cuid())
+  firmId      String
+  userId      String?
+  category    String // rent | salary | utility | purchase | marketing | other
+  description String?  @db.Text
+  amount      Float
+  paymentMode String   @default("cash")
+  expenseDate DateTime @default(now())
+  createdAt   DateTime @default(now())
+
+  firm Firm  @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([firmId, expenseDate])
+  @@index([userId])
+}
+
+// ───────────────────────── Accounting ─────────────────────────
+
+model Account {
+  id             String   @id @default(cuid())
+  firmId         String
+  code           String
+  name           String
+  type           String // asset | liability | income | expense | equity
+  group          String?
+  openingBalance Float    @default(0)
+  balanceType    String   @default("debit")
+  active         Boolean  @default(true)
+  createdAt      DateTime @default(now())
+
+  firm Firm @relation(fields: [firmId], references: [id], onDelete: Cascade)
+
+  @@index([firmId])
+}
+
+model LedgerEntry {
+  id           String   @id @default(cuid())
+  firmId       String
+  accountId    String?
+  accountName  String
+  customerId   String?
+  invoiceId    String?
+  loanId       String?
+  voucherId    String? // cuid shared by every leg of one double-entry voucher; NULL = legacy ungrouped leg
+  reversalOfId String? // voucherId of the original voucher this one reverses
+  userId       String? // who posted this entry
+  date         DateTime @default(now())
+  particulars  String?
+  debit        Float    @default(0)
+  credit       Float    @default(0)
+  balance      Float    @default(0)
+  type         String // sale | purchase | loan | expense | udhaar | scheme | opening | receipt | payment
+  createdAt    DateTime @default(now())
+
+  firm     Firm      @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  customer Customer? @relation(fields: [customerId], references: [id], onDelete: SetNull)
+
+  @@index([firmId, date])
+  @@index([customerId])
+  // voucherId ALONE, not [firmId, voucherId], and that is the point. A voucherId is a cuid - one
+  // voucher, two to six legs - so dropping firmId off the front costs the voucher lookup nothing
+  // (EXPLAIN: ref, rows=2, 0ms) while removing a DECOY from the optimizer: two indexes sharing the
+  // firmId prefix look identical to MySQL when one firm owns most of the table, and it was choosing
+  // this one for the date-range statement queries, which it serves not at all. Measured on
+  // omerp_perf_test (50,000 legs, one firm):
+  //   statements period GROUP BY   190ms -> 60ms      (was `Using where; Using temporary`)
+  //   statements opening GROUP BY  240ms -> 90ms
+  //   day book page, 200 legs      170ms -> 80ms      (was `Using filesort`)
+  // A firm with few legs still gets `range` on [firmId, date] (verified) - the optimizer can now
+  // pick per tenant instead of always picking the wrong one.
+  @@index([voucherId])
+  // Every reversal asks "has this voucher already been reversed?" (src/lib/ledger.ts:195, invoice
+  // delete, expense delete). With no index on this column that question scanned the firm's whole
+  // ledger: 300ms at 50,000 legs, 0ms with it.
+  @@index([reversalOfId])
+}
+
+// ───────────────────────── Gold Rate ─────────────────────────
+
+model GoldRate {
+  id        String   @id @default(cuid())
+  firmId    String
+  metal     String // gold | silver
+  purity    String // 24K | 22K | 18K
+  rate      Float
+  // per_gram | per_10_gram | per_kg — what `rate` is actually quoted per. The old blanket "per 10
+  // gram" comment on this column was wrong for every silver row (the app has always shown silver
+  // per kg — see billRates() in src/components/app/print/invoice-print.ts); a reader had to guess
+  // by metal name instead of reading it off the row. Convert with goldRateToPerGram() in
+  // src/lib/stock-calc.ts — never re-derive the /10 or /1000 inline, that is the 10x-error risk.
+  unit      String   @default("per_10_gram")
+  rateDate  DateTime @default(now())
+  createdAt DateTime @default(now())
+
+  firm Firm @relation(fields: [firmId], references: [id], onDelete: Cascade)
+
+  @@index([firmId, rateDate])
+}
+
+// ───────────────────────── Settings / SMS / Logs ─────────────────────────
+
+model Setting {
+  id        String   @id @default(cuid())
+  firmId    String
+  key       String
+  value     String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  firm Firm @relation(fields: [firmId], references: [id], onDelete: Cascade)
+
+  @@unique([firmId, key])
+  @@index([firmId])
+}
+
+model SmsLog {
+  id        String   @id @default(cuid())
+  firmId    String?
+  userId    String?
+  mobile    String
+  message   String   @db.Text
+  template  String?  @db.Text
+  type      String   @default("transactional")
+  status    String   @default("sent") // sent | failed | pending
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+}
+
+model SystemLog {
+  id        String   @id @default(cuid())
+  firmId    String?
+  userId    String?
+  action    String
+  entity    String?
+  entityId  String?
+  details   String?  @db.Text
+  ipAddress String?
+  createdAt DateTime @default(now())
+
+  firm Firm? @relation(fields: [firmId], references: [id], onDelete: SetNull)
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([firmId])
+  @@index([userId])
+}
+
+// ───────────────────────── Tasks / Reminders ─────────────────────────
+
+model Task {
+  id         String    @id @default(cuid())
+  firmId     String?
+  userId     String?
+  customerId String?
+  subject    String
+  category   String    @default("general") // general | followup | payment | meeting | other
+  priority   String    @default("medium") // low | medium | high
+  status     String    @default("pending") // pending | done | cancelled
+  dueDate    DateTime?
+  note       String?   @db.Text
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  firm Firm? @relation(fields: [firmId], references: [id], onDelete: SetNull)
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([firmId])
+  @@index([userId])
+}
+
+// ───────────────────────── Customer Orders ─────────────────────────
+
+model Order {
+  id             String    @id @default(cuid())
+  firmId         String
+  orderNo        String
+  customerId     String?
+  customerName   String
+  customerMobile String?
+  userId         String?
+  orderDate      DateTime  @default(now())
+  deliveryDate   DateTime?
+  status         String    @default("pending") // pending | in_progress | delivered | cancelled
+  totalAmount    Float     @default(0)
+  advanceAmount  Float     @default(0)
+  note           String?   @db.Text
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  firm Firm  @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([firmId])
+  @@index([userId])
+}
+
+// ───────────────────────── Quotation & Estimate ─────────────────────────
+
+model Quotation {
+  id                 String    @id @default(cuid())
+  firmId             String
+  quoteNo            String
+  customerId         String?
+  customerName       String
+  customerMobile     String?
+  userId             String?
+  quoteDate          DateTime  @default(now())
+  validTill          DateTime?
+  type               String    @default("quotation") // quotation | estimate
+  status             String    @default("open") // open | converted | expired | cancelled
+  goldRate           Float     @default(0)
+  subtotal           Float     @default(0)
+  discount           Float     @default(0)
+  cgst               Float     @default(0)
+  sgst               Float     @default(0)
+  igst               Float     @default(0)
+  totalAmount        Float     @default(0)
+  note               String?   @db.Text
+  convertedInvoiceId String?
+  whatsappSent       Boolean   @default(false)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  firm  Firm            @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  user  User?           @relation(fields: [userId], references: [id], onDelete: SetNull)
+  items QuotationItem[]
+
+  @@index([firmId])
+  @@index([userId])
+}
+
+model QuotationItem {
+  id           String  @id @default(cuid())
+  quotationId  String
+  stockItemId  String?
+  name         String
+  purity       String?
+  netWeight    Float   @default(0)
+  rate         Float   @default(0)
+  makingCharge Float   @default(0)
+  amount       Float   @default(0)
+  total        Float   @default(0)
+
+  quotation Quotation  @relation(fields: [quotationId], references: [id], onDelete: Cascade)
+  stockItem StockItem? @relation(fields: [stockItemId], references: [id], onDelete: SetNull)
+
+  @@index([quotationId])
+  @@index([stockItemId])
+}
+
+// ───────────────────────── Jewellery Repair Management ─────────────────────────
+
+model Repair {
+  id             String    @id @default(cuid())
+  firmId         String
+  repairNo       String
+  customerId     String?
+  customerName   String
+  customerMobile String?
+  karigarId      String?
+  karigarName    String?
+  userId         String?
+  intakeDate     DateTime  @default(now())
+  deliveryDate   DateTime?
+  status         String    @default("received") // received | assigned | in_progress | ready | delivered | cancelled
+  itemName       String
+  itemDesc       String?   @db.Text
+  problem        String?
+  estimatedCost  Float     @default(0)
+  finalCost      Float     @default(0)
+  advancePaid    Float     @default(0)
+  smsSent        Boolean   @default(false)
+  note           String?   @db.Text
+  // Set once, by POST /api/repairs/bill, when this job is billed into a real tax Invoice
+  // (SAC 9987 service line — see that route). A plain pointer, not a Prisma relation, mirroring
+  // Quotation.convertedInvoiceId — Invoice is owned by another agent and stays untouched here.
+  // @unique doubles as the "billed only once" guard: the route claims a repair with a
+  // WHERE id=? AND invoiceId IS NULL conditional update before it creates the invoice.
+  invoiceId      String?   @unique
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  firm     Firm      @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  customer Customer? @relation("RepairCustomer", fields: [customerId], references: [id], onDelete: SetNull)
+  karigar  Customer? @relation("RepairKarigar", fields: [karigarId], references: [id], onDelete: SetNull)
+  user     User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([firmId])
+  @@index([customerId])
+  @@index([karigarId])
+  @@index([userId])
+}
+
+// ───────────────────────── Loyalty Points Ledger ─────────────────────────
+
+model LoyaltyPoint {
+  id           String   @id @default(cuid())
+  firmId       String
+  customerId   String
+  points       Int      @default(0) // +ve earned, -ve redeemed
+  type         String // earn | redeem | adjust
+  refInvoiceId String?
+  note         String?  @db.Text
+  createdAt    DateTime @default(now())
+
+  firm     Firm     @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  customer Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@index([firmId])
+  @@index([customerId])
+}
+
+// ───────────────────────── Bank Reconciliation ─────────────────────────
+// be-platform-data. oMunim's own BANK REC is a filtered per-account ledger view (Start Date, End
+// Date, Select Bank, Select Format = Bank View | Normal View | Cr Wise | Dr Wise) — not a statement
+// matcher. Named bank accounts are the prerequisite for that (a firm has several; every bank leg
+// must say which one). Beyond parity: BankTransaction gives a cheque a clearing date distinct from
+// its transaction date (in transit until it clears — see `status`, and reversible on bounce via
+// reverseVoucher(), never an edit of the posted voucher), and BankStatementLine is a CSV bank
+// statement import that can be matched against the ledger without ever touching a posted
+// LedgerEntry — reconciliation is metadata on the imported row, not a mutation of the books.
+//
+// Known limitation, out of this task's reach: the EXISTING cheque/card/UPI legs posted by
+// src/app/api/invoices/**, loans/**, udhaar/** still credit the one generic "Bank Account" on the
+// transaction date (src/app/api/invoices/route.ts and siblings — all off-limits to this agent).
+// They are not retrofitted to a named BankAccount or a clearing date by this change. Only NEW
+// entries made through this module's own screen get a named account and, for cheques, a real
+// clearing date.
+//
+// accountId/matchedVoucherId/toBankAccountId below are bare pointers, not Prisma relations — the
+// same convention LedgerEntry.accountId/invoiceId/loanId already use, so this feature needs no
+// change to the Account or LedgerEntry models it addresses by id/voucherId.
+
+model BankAccount {
+  id             String    @id @default(cuid())
+  firmId         String
+  // The chart-of-accounts Account row this bank posts through: name "Bank - <name>", type asset,
+  // self-provisioned on create (see src/app/api/bank/accounts/route.ts's own ensureAccount, same
+  // shape as src/app/api/invoices/route.ts's).
+  accountId      String?
+  name           String // display name, e.g. "ICICI Current 4521" — must be unique per firm
+  bankName       String?
+  accountNumber  String?
+  ifsc           String?
+  branch         String?
+  openingBalance Float     @default(0)
+  openingDate    DateTime?
+  active         Boolean   @default(true)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  firm           Firm                @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  transactions   BankTransaction[]
+  statementLines BankStatementLine[]
+
+  @@unique([firmId, name])
+  @@index([firmId])
+}
+
+model BankTransaction {
+  id                 String    @id @default(cuid())
+  firmId             String
+  bankAccountId      String
+  // deposit | withdrawal | transfer | cheque_in | cheque_out
+  type               String
+  // deposit/withdrawal: the other leg's ledger account name (e.g. "Cash in Hand"). Unused for
+  // transfer (toBankAccountId instead) or cheque_* (always "Cheques in Transit").
+  counterAccountName String?
+  // transfer only. Bare pointer at another BankAccount.id — see file header.
+  toBankAccountId    String?
+  amount             Float
+  // The date on the cheque, or the day cash/transfer physically moved.
+  transactionDate    DateTime
+  // The day it actually hit the bank. NULL until a cheque clears; equals transactionDate for
+  // deposit/withdrawal/transfer, which post for real immediately.
+  clearingDate       DateTime?
+  // pending | cleared | bounced. deposit/withdrawal/transfer are always created 'cleared'; only
+  // cheque_in/cheque_out start 'pending'.
+  status             String    @default("cleared")
+  chequeNumber       String?
+  narration          String?   @db.Text
+  // postVoucher()'s id for this row's own posting: the real bank leg for deposit/withdrawal/
+  // transfer, or the "Cheques in Transit" leg while a cheque is still pending.
+  voucherId          String?
+  // Set only when a pending cheque clears: the voucher moving the money from Cheques in Transit
+  // onto the real bank account, dated clearingDate.
+  clearVoucherId     String?
+  // Set only when a pending cheque bounces: reverseVoucher()'s output against voucherId above.
+  // The original voucher is never edited — see src/lib/ledger.ts reverseVoucher().
+  reversalVoucherId  String?
+  userId             String?
+  createdAt          DateTime  @default(now())
+
+  firm        Firm        @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  bankAccount BankAccount @relation(fields: [bankAccountId], references: [id], onDelete: Cascade)
+
+  @@index([firmId, bankAccountId])
+  @@index([firmId, status])
+}
+
+model BankStatementLine {
+  id               String    @id @default(cuid())
+  firmId           String
+  bankAccountId    String
+  date             DateTime
+  description      String    @db.Text
+  debit            Float     @default(0) // withdrawal, per the bank's own statement
+  credit           Float     @default(0) // deposit, per the bank's own statement
+  reference        String?
+  // Reconciliation is metadata about this IMPORTED row, never a mutation of the LedgerEntry it
+  // matches — a bare pointer at LedgerEntry.voucherId (see file header); no LedgerEntry column is
+  // ever written by this feature.
+  matchedVoucherId String?
+  matchedAt        DateTime?
+  matchedBy        String? // userId who confirmed a manual match; NULL for an auto-match
+  importBatch      String // groups one CSV import, so it can be reviewed/undone as a unit
+  createdAt        DateTime  @default(now())
+
+  firm        Firm        @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  bankAccount BankAccount @relation(fields: [bankAccountId], references: [id], onDelete: Cascade)
+
+  @@index([firmId, bankAccountId, date])
+  @@index([firmId, matchedVoucherId])
+}

@@ -1,0 +1,28 @@
+                                          SIZE 94.10 mm, 20 mm
+GAP 3 mm, 0 mm
+SET RIBBON ON
+DIRECTION 0,0
+REFERENCE 0,0
+OFFSET 0 mm
+SET PEEL OFF
+SET CUTTER OFF
+SET PARTIAL_CUTTER OFF
+SET TEAR ON
+CLS
+BITMAP 270,51,7,60,1,ð     ?À     €      ÿÿÿÿÿç³²ÏŸ?ûÿ{·ß?ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿà  ÿ€ € ÿ   € þ      ü     x     p   €      À ÿ‡ÿ€à ÿÿ€ð þÿ€?øþþ ü þü ÿþ þüÿÿ ?ðÿÿ€ƒà ÿÿÀÿàÿÿà ÿ€ÿÿðÿ ?ÿÿøÿ ÿÿü ü ÿÿÿþ xÿÿÿÿ xÿÿÿÿ€  ÿÿÿÿÀ ÿÿÿÿà ÿÿÿÿð ?ÿÿÿÿø ÿÿÿÿü ÿÿÿÿÿþÿÿÿÿÿÿÿÿÿÿÿÿÏÿÿÿÿÿÿÿÿÿÿ
+CODEPAGE 1252
+TEXT 500,160,"ROMAN.TTF",180,1,8,"OPTION1"
+TEXT 500,133,"ROMAN.TTF",180,1,8,"OPTION3"
+TEXT 500,105,"ROMAN.TTF",180,1,8,"OPTION4"
+TEXT 500,79,"ROMAN.TTF",180,1,8,"OPTION6"
+TEXT 292,152,"ROMAN.TTF",180,1,8,"OPTION5"
+TEXT 240,152,"ROMAN.TTF",180,1,8,"OPTION7"
+TEXT 150,160,"ROMAN.TTF",180,1,8,"OPTION8"
+TEXT 150,133,"ROMAN.TTF",180,1,8,"OPTIONS1"
+TEXT 150,105,"ROMAN.TTF",180,1,8,"OPTIONS2"
+TEXT 150,79,"ROMAN.TTF",180,1,8,"OPTIONS3"
+TEXT 160,53,"ROMAN.TTF",180,1,8,"OPTION9"
+BARCODE 240,108,"128M",29,0,180,1,2,"OPTIONZ"
+TEXT 500,31,"ROMAN.TTF",180,1,8,"OPTIONA"
+PRINT 1,1
+                                                                                                                                                                                                                                                                                                                                                             

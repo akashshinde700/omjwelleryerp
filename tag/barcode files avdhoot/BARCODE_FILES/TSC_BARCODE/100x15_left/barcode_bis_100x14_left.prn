@@ -1,0 +1,21 @@
+<xpml><page quantity='0' pitch='14.0 mm'></xpml>SIZE 97.5 mm, 14 mm
+DIRECTION 0,0
+REFERENCE 0,0
+OFFSET 0 mm
+SET PEEL OFF
+SET CUTTER OFF
+SET PARTIAL_CUTTER OFF
+<xpml></page></xpml><xpml><page quantity='1' pitch='14.0 mm'></xpml>SET TEAR ON
+CLS
+BITMAP 23,26,6,32,1,א    ?ְ    ÿÿÿÿß/חסֿןÿÿÿÿÿÿÿÿÿÿÿÿְ א ?€ ?ְ € € €   €   ְÿÿ€אנְ?נא€ר א? ÿüא~ÿ‏נ|ÿÿ רר ÿÿ€נÿÿְ?אÿÿאְ?ÿÿנ€ÿÿÿר  ÿÿÿü ÿÿÿ‏  ÿÿÿÿ  ÿÿÿÿ€ÿÿÿÿְ?ÿÿÿÿאÿÿÿÿרÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ
+CODEPAGE 1252
+TEXT 440,100,"0",180,7,7,"OPTION1"
+TEXT 436,76,"0",180,7,7,"OPTION2"
+TEXT 436,52,"0",180,7,7,"OPTION3"
+TEXT 436,25,"0",180,7,7,"OPTION4"
+TEXT 314,100,"0",180,7,7,"OPTION5"
+TEXT 214,100,"0",180,7,7,"OPTION7"
+TEXT 206,25,"0",180,7,7,"OPTION8"
+BARCODE 205,71,"128M",35,0,180,1,2,"OPTIONZ"
+PRINT 1,1
+<xpml></page></xpml><xpml><end/></xpml>

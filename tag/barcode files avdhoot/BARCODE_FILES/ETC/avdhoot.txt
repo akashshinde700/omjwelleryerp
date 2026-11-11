@@ -1,0 +1,1016 @@
+*************AVDHOOT SUPPORT*****************
+20/02/2024
+
+1) ID-RAJJEWELS21   invoice customization and imitation invoice Issue
+2) ID-PCJBANKURA    bill Issue  
+3) ID- Mahadev      reinstallation done
+4) ID -TILOTTAMA    bill missing and excel download and b/l sheet Issue
+5) ID- ANKUR        printer problem
+
+
+
+21/02/2024
+
+1) ID- Saurabh@5  invoice customization 
+2) ID- Bobbyguptasons	 tag customization and master passWord set
+
+
+**********AVDHOOT UPPORT**********
+22/02/24
+1) ID- fancy89   BARCODE sETTING
+2) ID= goldpalace123   -- INTALLATION DONE
+3) FEEDBACK CALL DONE
+4) id ARNAB2003    invoice customization 
+5) id kj1410       printer problem
+6) id asdbw57y     girvi form customization
+7) id dhayagold    login problem
+8) id ASHOK JEWELLERS    INVOICE customization 
+
+
+*********AVDHOOT *************
+
+
+
+
+23/02/24
+
+1) pushkar     HELP IN SELL
+
+26/02/24
+
+1) Ankit999    RATE CUT AND NO RATE CUT ISSUE TAKING DEFAULT VALUE
+2) prabhu      ADVANCE MONEY ISSU AND INVOICE CUSTOMIZATION  
+3) PJEWELL     PRINTER AND tag setting done
+4) RCJEWELLERS DATA REPAIR DONE
+5) Ismail      INSTALLATION DONE WITHOUT TAKING BACKUP FROM OLD SYSTEM ..THEIR OLD SYSTEM WAS NOT AVAILABE 
+6) svshraff    DELETED THE INVOICE FROM DATABASE AND SOLVED THE SELL ISSUE
+7) Devjewellers  INVOICE CUSTOMIZATION
+8) DHIRAJ SONI	 DATE ISSUE
+
+********************************************
+27-02-24
+
+1) mrspsonar      ISSUE IN TAKING WRONG RATE AT THE TIME OF SELL
+2) abhi           INVOICE CUSTOMIZATION
+3) JMK Jewels     FINE WEIGHT ISSUE
+4) subastore      DEMO
+5)Shivam jewellers   IGST ISSUE
+6) Bobbyguptasons  WEB CAM SETTING
+7) pushkar         INVOICE CUSTOMIZATION AND CR DR ISSUE
+8) laxmi           LOGIN ISSUE
+9) SAGAR777GUPTA   STOCK ISSUE
+10) Saurabh@5      INVOICE CUSTOMIZATION
+11) ARNAB2003      INVOICE CUSTOMIZATION
+12) prashant      INSTALLATION DONE
+13) sbj2024        INVOICE CUSTOMIZATION
+ 
+******************************************************
+28-02-24
+
+1) Landmark       STOCK TALLY ISSUE AND RUN PHP FILE
+2) sahiba         SUPPLIER PURCHASE ISSUE
+3) MANISH12       UPADTED HIS SOFTWARE TO  296  database is taken for checking
+4) pushkar        INVOICE CUSTOMIZATION AND CR DR ISSUE
+5) RKJ1           UPADTED HIS SOFTWARE TO  296
+6) N P JEWELLERS  INVOICE CUSTOMIZATION AND CR/DR ISSUE 
+
+***********************************************************************
+
+29-02-24
+
+1)AfroAsaitic           ledger issue in gst and diamond and other issue pending as he already discussed with neha madam and gangadhar sir 
+2)RKJ1 (6387582839)     loginn issue   DATABASE TAKEN (PATIDAR SIR )and master password done
+3)payal alankar         BARCODE SETUP 
+4)kavitagoyal           INSTALLATION DONE
+5)shree2293             INVOICE CUSTOMIZATION , MASTER PASSWORD SET
+6)RK JWELLERS           LOGIN ISSUE PENDING
+7)sbj2024               INVOICE CUSTOMIZATION
+8)GKMJ                  INVOICE ISSUE AND GST PANEL ISSUE (DEC MONTH NOT AVAILABEL IN MONTH LIST)
+9)shri ram jew          master password set
+10)karanranka89         INVOICE CUSTOMIZATION
+11)ankur.1981           REQUIREMENT 1- CUSTOMER NAME AND  CITY NAME HIDE IN LOAN PANEL (MONEY LANDER) AND RELESE DATE FILTER  AND DOWNLOAD    FILE IN EXCEL 
+
+************************************************************************
+01-03-24
+
+1)abhinandan verma      LOGIN ISSUE
+2)adi chauhan           IMMITATION STOCK SETTING DONE
+3)nikhiljwls            SHOWING NON GST TRANSITONS AMOUNT IN DAYBOOK 
+4)Shreeganesh9916       master password set
+5)virender              his pc is locked ho waant to recover the pc and the software data is also in it and he want the data back ( i have suggesteed to copy all data in external hard drive and then reset the pc and then we wil try to recover the data)
+6)RK JWELLERS           LOGIN ISSUE DONE
+7) TBJN                 HE WANT UPDATES
+8)ARNAB2003             invoice customization
+9)Saurabh@5             invoice customization
+10)SVB@JEWELS    —      MULTIPLE IMITATION STOCK SELL PROBLEM .....IT GETS REFRESH WHEN HE AAD ANOTHER QUANTITY
+11)Chhabraj             STOCK TRANSFER FROM ONE FIRM TO ANOTHER AND STOCK AVAILABL IN REPORT BUT AT THE TIME OF SELL IT SHOWING THAT IT IS AVAILABEL THAT IT IS AVAILABEL IN STOCK ESTIMATE LIST
+
+
+**************************************************************************************
+02-03-24
+
+1) UV JEWELLERS      master pass set and invoice customization
+2)  Jainam21         installation done
+3) harsh1            installation done
+4) SRS1996           MASTER PASWORD
+5) GK.JEWELLS        MASTER PASSWORD AND INVOICE DONE 
+6)vipulsoni1010      deleted all the data...... except firm and otherr settings
+7)ajayverma123       master passa and sell issue
+8)CMJ1               LOGIN ISSUE 
+9)Yash@1753          INVOICE CUSTOMIZATION
+10)PRAVINSONI        PRINTER SETTING
+ 
+*********************************************************************
+04-03-24
+
+1)ambika            INVOICE CUSTOMIZATION CR/DR IMITATION AND ESTIMATE, UPDATED HIS SOFTWARE FROM 242 TO 296
+2)nandsinghsons     INVOICE CUSTOMIZATION 
+3)fancy89           INVOICE CUSTOMIZATION
+4)ARNAB2003         STOCK ADD PROBLEM
+5)r.dverma          INVOICE CUSTOMIZATION
+6)antimol84         MASTER PASS INVOICE CUSTOMIZATION , BULK DATA UPLOAD FILE 
+7)Krishnatak        LOGIN ERROR
+8)SVB@JEWELS        MULTIPLE IMITATION STOCK SELL PROBLEM .....IT GETS REFRESH WHEN HE AAD ANOTHER QUANTITY ISSUE SOLVED
+9)venkataramana     AUCTIONED LOAD TRANSFERED INTO ACTIVE LONE
+10)NANADBHOJAI      ADDITION PROBLEM IN MAKING CHARGES AND IMITATION STOCK SELL 
+11)djnx             RELESE FUNCTION IS NOT WORKING IN LOAN PANEL
+12)CMJ1             BARCODE SETUP
+
+**********************************************************************************************************
+ 05-03-2024
+
+1)Ankit999        TAKING BALANCE METAL DOUBLE
+2)ARNAB2003       IMAGE NOT SHOWING IN INVOICE WHEN HUID IS UPDATED AFTER SELL
+3)pankajnikam05   DELETED CHACHE BILL FROM DATABASSE
+4)AasthaJewellers HE WANT TO CHANGE DECSRIPTION COLOUM SIZE
+5)MAHAVEERJEWEL   INVOICE CUSTOMIZATION GST AND NONGST
+6)DAJ JEWELLERS   ONLINE CUST   LOGIN DONE 
+7)sumitraj        DONGAL UPDATED AND LOGIN AFTER AMC PAY
+8)RHJ01           LOGIN AFTER AMC PAYMENT 
+9)nkjr            HIS ISSUE IS PENDING
+10)urmila333      master password done
+11)WOJ2020        stock recreation file run by maruti sir
+
+******************************************************************
+06-03-2024
+
+1)triveni om      INVOICE NUMBER ISSUE 
+2)sarjujewellers  ISSUE IN PURCHSE BY KARAGIR TDS IS NOT LESS IN BILL BUT IT GEST ADD IN TOTAL  
+3)MAHAVEERJEWEL   INVOICE CUSTOMIZATION
+4)1998vishal      INVOICE GST,NONGST AND MASTER PASS DONE                    
+5)MAHAVEERJEWEL   INVOICE CUSTOMIZATION
+6)abhinandan verma INVOICE CUSTOMIZATION
+
+
+***************************************************************
+07-03-2024
+
+1)SAINATHGOLD     SOFTWARE LOGIN AFTER AMC PAYMENT 
+2)sarjujewellers  SOFTARE TRANSFER FROM ONE PC TO ANOTHER PC (PENDING)
+3)Sailok          MAKING AMOUNT ISSUE SOLVED
+4)916soumya       BARCODE SETTING DONE
+5)pmjewellers     BARCODE SETTING DONE
+6)K kaura jeweller login issue
+7)Aditya7329      silver matel balance is not correct in 1 march backup and 7 march backup  (silver stock purchase from nageshwar) 
+8)Mangal18        BARCODE SETTING PENDING
+9)SunilA          HE WANT TRAINING
+
+*********************************************************************************************
+08-03-2024
+
+1)Mangal18        BARCODE SETTING
+2)sarjujewellers  software transfer from one pc to another
+3)RinkalRajpoot   software login issue
+4)AUSJ            ONLINE BARCODE SETTING
+5)Kingo@123       online cust login done
+6)DAJ JEWELLERS   installation done   barcode and invoice pending
+    
+*****************************************************************************************
+
+11-03-2024
+
+1)MJGOLD         invoice customization
+2)Ankit999       file provided for payfuctions
+3)fancy89        refreshed and login 
+4)Darshan283     INVOICE CUSTOMIZATION
+5)SAI JEWELLERS  INVOICE CUSTOMIZATION
+6)vg1991vaibhav  NO ISSUE
+7)krushnai12     MASTER PASS INVOICE CUSTOMIZATION AND BARCODE SETTING
+8)anujmah29      invoice customization
+9)vishal@22778074 stock setting
+10)rishabhdiamonds BARCODE mrp file created
+
+**********************************************************************************
+
+12-03-2024
+
+1)vpdj             call for login
+2)vrnsn2007        LOGIN DONE
+3)sjkgp            printer setup done
+4)kolkatajewellers login done
+5)Darshan283       INVOICE ISSUE
+6)GK.JEWELLS       barcode setting
+7)satyam.raikot    updat done
+8)MLJ@1823         INVOICE CUSTOMIZATION
+9)rishabhdiamonds  BARCODE SETTING
+10)gajanan1         TAG SETTING
+11)Harsh1           BARCODE SETTING
+
+*****************************************************
+13-03-2024
+
+
+1)Harsh1            BARCODE SETTING
+2)goldbazar916      INVOICE PRINTER ISSUE
+3)GK.JEWELLS        BARCODE AND INVOICE
+4)nkjr             taking wrong total on invoice  issue (13-02-24) told girish sir and simran madam database taken on (13-02-24)
+5)rattanjewellers  gst number add in firm 
+6)PUSHKAR           silver tag setting pending
+7)Devjewellers      invoice customization
+8)kiranjewellers78  master password done
+9)Devjewellers      stock rate issue
+10)saraswati1992    tag setting pending
+11)sbj2024  stock add problem LMS1 and LMS2 stock databaase taken on (13-03-2024)
+12) 
+
+****************************************************
+14-03-2024
+
+1)ravirathore08    he will call tomorrow his printer is not getting calibratae properly
+2)sbj2024          DATA REPAIR and database configuration done
+3)deepak@3762      LOGIN ERROR
+4)ARNAB2003   -- his non gst invoice is getting customize database taken on 14-03-2024
+5)ARNAB2003        omEstiSellInsUpd.php upd run on his software and issue solved
+6)silverneeds      invoice customization
+7)sahiba           invoice alredy present
+8)saraswati1992    barcode setting
+
+******************************************************
+
+15-03-2024
+
+1)mrspsonar     taking silver rate at the time of sell when he purchase old gold
+2)harsh1        GST AND NON GST INVOICE
+3)GK.JEWELLS    TAG SETTING  AND INVOICE SETTING
+4)Sagar Jewellers  CNR  MASSAGE SENT ON WHATSAPP
+5)Alka1956        CNR MASSAGW SENT ON WHATASAPP
+6)kiranjewellers78 CNR MASSAGW SENT ON WHATASAPP
+7)SujeetDixit    barcode setting done
+8)Alka1956       silver stock problem showing different values  database taken on 15-03-24 and sent tom patidar sir
+9)ARKAJEWELLERS   he formatted the software and installeed the new software 
+10)HGANDHI@511   ONLINE CUSTOMER ...MASTER PASSWORD PENDING
+11)adminsatguru    hallmark addition file provided
+12)MRJewl24        BARCODE SETTING
+13)choudharyjewel   BARCODE SETTING
+
+***************************************************
+16-03-2024
+
+1)MRJewl24     barcode setting
+2)Mljewl        barcode setting
+3)ssgems1       login and master password done
+4)samrudhi1389   login issue done
+5)CMJ1          data repair done for (non gst bill not delete)
+6)SHUBHAMJ      he is having issue in invoice serial number getting alternet number only odd number database taken (16-03-2024)
+7)Omkarj         he was having maney issue and deleted his stock
+8)soni jwellers  INVOICE CUSTOMIZE
+9)TJTJ           loan not adding in software 
+10)harsh1        tag setting
+11)ketan         HE WILL CALL ON MONDAY
+12)bhagyashree34  AMC 
+13)lalchand2      UPDATE GIVEN
+ 
+************************************************************
+
+18-03-2024
+
+1)Shubhsaraf        BARCODE(ONLINE) AND INVOICE DONE
+2)aasthajewellers   INVOICE CUSTOMIZATION
+3)raviabhushanalay  barcode setting
+4)SHRIRAM9614       LOGIN ISSUE 
+5)MAHAKAYAYA        BARCODE(ONLINE) DONE
+6)saraswati1992     BARCODE DONE
+7)ravirathore08     barcode file done             
+
+************************************************************
+
+19-03-2024
+
+1)raviabhushanalay   scaneer problem and tag setting
+2)Aditya7329         stock problem and return invoice problem
+3)ketan              software not opening
+4)abhinandan verma   serial number issue showing gst bills in estimate sell pannel
+5)SHIV9636          BARCODE SETTING DONE
+6)SHIV9636          STOCK DELETE
+7)Arham99           LOGIN ISSUE DONE
+8)RKJ1               HIS PC IS VERY SLOW AND GETTING ISSUE IN SOFTWARE 
+9)MURUGAPPA          HE WILL CALL BACK TOMORROW
+10)ASHISHJEWELLERS    LOGIN DONE
+11)Deepak Sencha     INVOICE CUSTOMIZATION AND DATA DELETE
+12)payal alankar     duplicate huid
+
+
+************************************************************
+20-03-2024
+
+
+1)KRISHNA916     INVOICE NUMNBER ALREDY PRESENT
+2)Sgp721         SOFTWARE TRANSFER FROM ONE TO ANOTHER PC
+3)prakash01      STOCK DELETE , BARCODE SETTING
+4)OMKARSARAF     ip login done and master passs done
+5)prakash01      BARCODE SETTING DONE  ZEBRA ZD420
+6)SAI JEWELLERS  data delete
+7)laxmi1988      stock problem , whatsapp api 
+
+
+
+-----------------------------------Date:-20-03-24-----------------------------------------------
+--->>>solved------------------------------------------------------------------------------------------------------------------------------
+id:-KRISHNA916     INVOICE NUMNBER ALREDY PRESENT issue done
+id:-Sgp721         SOFTWARE TRANSFER FROM ONE TO ANOTHER PC issue done
+id:-prakash01      STOCK DELETE issue done
+id:-OMKARSARAF     ip login and master passs issue done
+id:-prakash01      BARCODE SETTING DONE  ZEBRA ZD420 done
+id:-SAI JEWELLERS  data delete issue done
+id:-laxmi1988      stock problem , whatsapp api issue done 
+--->>>Unsolved----------------------------------------------------------------------------------------------------------------------------
+id:-
+id:-
+
+-----------------------------------Date:-21-03-24-----------------------------------------------
+--->>>solved------------------------------------------------------------------------------------------------------------------------------
+id:-arush          SHAREING NAME ISSUE SOLVED
+id:-MAHAKAYAYA     BARCODE SETUP
+id:-alankar        STOCK DELETE AND INVOICE CUSTOMIZATION
+id:-
+--->>>Unsolved----------------------------------------------------------------------------------------------------------------------------
+
+id:-maahey1025      BARCODE SETTING(shreyans cd410) PRNDING
+id:-shreeluckyj1456 daybook amount in minus
+id:-Siddnath        barcode file pending (TSC - 100X12)
+
+
+-----------------------------------Date:-22-03-24-----------------------------------------------
+--->>>solved------------------------------------------------------------------------------------------------------------------------------
+id:-Thomaji jwellers   installation,gst and msterpassword set done
+id:-bigelephant        master and normal password set
+id:- D D Jewellery     STOCK,KARAGIR,SUPPLIER,INVOICE CUSTOMIZATION,BARCODE SETTING DONE
+id:-MAHAVEERJEWEL      stock,user delete and invoice customization
+id:-AMRITA             printer setup done (gainscha gs-2406t)
+--->>>Unsolved----------------------------------------------------------------------------------------------------------------------------
+id:- D D Jewellery  auto print not working when adding stock
+
+
+-----------------------------------Date:-25-03-24-----------------------------------------------
+--->>>solved------------------------------------------------------------------------------------------------------------------------------
+id:-viraj369       BARCODE SETTING
+id:-AJMER          INVOICE NUMBER ALREDY PRESENT
+id:-D D Jewellery  invoice customization
+--->>>Unsolved----------------------------------------------------------------------------------------------------------------------------
+id:- SHANTHI@37    2CNR
+
+
+
+-----------------------------------Date:-27-03-24-----------------------------------------------
+--->>>solved------------------------------------------------------------------------------------------------------------------------------
+id:-SHIV9636       BARCODE SETTING
+id:-mrspsonar      SOFTWARAE UPDATE 
+id:-durgajewellers LOGIN ISSUE
+id:-HANUMAN        barcode done,master password done
+id:-soni jwellers  update given
+--->>>Unsolved----------------------------------------------------------------------------------------------------------------------------
+id:-rupamjew       retsol printer setup pending ..printer drivers are not installed
+id:-HANUMAN        logo is not printing properly on barcode 
+
+
+
+-----------------------------------Date:-28-03-24-----------------------------------------------
+--->>>solved------------------------------------------------------------------------------------------------------------------------------
+id:-Varma321         INVOICE SETTING DONE
+id:-MAHAVEERJEWEL    invoice setting and update given
+id:-manish1992       stock recreation and masterpassword and invoice setting done
+id:-ASHOK JEWELLERS  INVOICE CUSTOMIZATION AND UPDATE GIVEN and stock recretaion
+id:-kcsoj            LOGIN DONE (UPDATE GIVEN BY MAYURI)
+id:-kcsoj            scroll is not working after update(322) solved
+id:-amit jewellers   invoice setting done
+
+--->>>Unsolved----------------------------------------------------------------------------------------------------------------------------
+id:-urmila333        BARCODE SETTING(FILE AND DRIVERS DONE) pending 
+id:-
+
+
+
+
+-----------------------------------Date:-29-03-24-----------------------------------------------
+--->>>solved------------------------------------------------------------------------------------------------------------------------------
+id:-MAHAKAYAYA         barcode setting done
+id:-Thomaji jwellers   barcode setting done
+id:-BHAGYA916          HE WAS NOT ABLE TO FIND THE JEWELLERY PANNEL DONE
+id:-anandj             INSTALLATION DONE, gst,non gst password set
+id:-kcsoj              issue in loan pannel 
+id:-parasjewellers     master password done
+id:-manish1992         login issue done
+id:-urmila333          barcode setting done
+id:-jojo               login error done
+id:-dilshad@123        installation done
+
+--->>>Unsolved----------------------------------------------------------------------------------------------------------------------------
+id:-main123           LOGIN PENDING(CNR)
+id:-Rajesh           1)KARAGIR MAKING SHOWING IN MINUS
+                     2)STOCK ALREDY SOLD BUT SHOWING IN REPORT
+                     3)ESTIMATE SELL INVOICE CUSTOMIZATION ISSUE OLD GOLD DETALIS NOT SHOWING DATABSE TAKEN ON 28-03-2024
+id:-kcsoj            showing error in loan pannel database taken on 29-03-2024
+
+
+
+
+----------------------------------Date:-30-03-24-----------------------------------------------
+--->>>solved------------------------------------------------------------------------------------------------------------------------------
+id:- MAHAKAYAYA - barcode setting done
+id:- sj1992     - LOGIN ISSUE , INVOICE SETTING,BARCODE SETTING
+id:- ncsc         installtion done , pms done
+id:-srjm          installation done 
+id:-GK.JEWELLS    data delete done
+id:-rupamjew      invoice customization,update given,reverse calculation issue , data delete done
+id:-SNGJEWELLERS07 invoice setting done         
+--->>>Unsolved----------------------------------------------------------------------------------------------------------------------------
+id:- sbj2024         CNR
+id:- MAHAKAYAYA      he want crystalrate sell rate automatic at the time of stock add  (requirement)
+id:- ssgems1         he want another box for youtube link ...near other info  and increse the limit of crystal size box(requirements)
+
+id:-sj1992           tag pending (tsc 81x12 and 66x10)and invoice issue and he want update 
+id:-somnathkarmakar  installation pending he will call back
+id:-pushkar           tag setting pending
+id:-AJS1152           cnr
+id:-BGDL2             cnr
+id:-sgj2001          his printer is not available now he will call on monday
+id:-SNGJEWELLERS07   he will make the logo and call back for logo add
+
+
+
+
+
+----------------------------------Date:-01-04-24-----------------------------------------------
+--->>>solved------------------------------------------------------------------------------------------------------------------------------
+id:- venkataramana   discussed with him ..he want to purchase software
+id:- SNGJEWELLERS07  invoice customization, data delete done
+id:-spjewellers823   login issue, invoice customization,and finanacial year start date done
+id:-dhruvtirwa       installation DONE
+id:- shyamswarn      installation DONE
+id:- shree1981       installation DONE
+id:-kedarling jewels printer issue done
+id:-PUSHKAR          2 files done(40x20 and 25x15)and barcode setting, QUOTATION PRINT ISSUE done
+id:-kapjewel78       master password, invoice setting done
+id:-New Kakashri     login done
+id:-Anand gold smith installtion done
+id:-venkataramana    pms configuration
+id:-rahulsoni82108   installation done
+--->>>Unsolved----------------------------------------------------------------------------------------------------------------------------
+id:- rkseth          installation pending(cnr)
+id:-Gayatri2009      installation pending(cnr) HE WANT TOMORROW
+id:- rupashree2      installation pending(cnr).CNR
+id:-SNGJEWELLERS07   stone rate is not showing on sample 1 invoice
+id:-uniquealigarh    cnr (invoice setting)
+id:-Swarnakalashfin  on call with ganga sir
+id:-bhaskargain      he will call back after 5pm
+id:-BGDL2            he will call back tomorrw.
+
+ 
+----------------------------------Date:-02-04-24-----------------------------------------------
+--->>>solved------------------------------------------------------------------------------------------------------------------------------
+id:- chohan           advance add issue solved
+id:-raviabhushanalay  stock missmatch issue solved
+id:-JMD05             tag setting done
+id:-D D Jewellery     invoice setting done
+id:-saraswati65       invoice nunmber issue
+id:-deepak@3762       LOAN SLIP CUSTOMIZATION
+id:-SNGJEWELLERS07    invoice customization issue and rates add issue done
+id:-Mansi             invoice customization done
+--->>>Unsolved----------------------------------------------------------------------------------------------------------------------------
+id:-BGDL2            he will call back after some time 
+id:-bhaskargain      he will clL back after 5pm
+id:-D D Jewellery    cnr
+id:-chohan           ledger - user transction - not working properly ...and software is slow  (this pannel was made for him as  requirement) 
+                      and he dont want  the zero entries in user transction pannel
+id:-raviabhushanalay   p/l pannel issue showing full sell amount in profit database taken(02-04-2024)send to ganga sir
+id:-MURUGAPPA         cnr
+id:-saraswati65       invoice number not showing in soldout list from (571to 584) database taken on (02-04-2024)send to ganga sir
+id:-Anand gold smith  cnr
+id:-hemant            he will call back tomorrow
+
+
+
+ 
+----------------------------------Date:-03-04-24-----------------------------------------------
+--->>>solved----------------------------------------------------------------------------------------------------------------------------
+id:-Mansi             invoice customization, pms setting and reverse calculation done
+id:-rupamjew          reverse calculation ,stock add rate, ffw issue solved
+id:-VarmaJ           BILL ISSUE AND STOCK RECRETAION DONE
+
+--->>>Unsolved----------------------------------------------------------------------------------------------------------------------------
+id:-bhaskargain       in ledger -GST SELL REPORT BY INVOICE WITH TOTAL METAL WEIGHT hallmark charges are not adding in taxable amount
+
+
+
+ 
+----------------------------------Date:-08-04-24-----------------------------------------------
+--->>>solved----------------------------------------------------------------------------------------------------------------------------
+id:-VDBJ              stock delete,invoice alredy present and loan issue solved
+id:-kanakjewelles     update given, firefox issue and tag setting prnding
+id:-HJAMAN            software update done
+id:-AJS1152           invoice setting, reverse calculation,tag setting
+id:-MAHALAKSHMI       invoice number issue
+id:-Nehajewellers     updatee given
+id:-sj1992            barcode issue 
+id:-Maurya Jwellers   login issue 
+id:-mj1890            metal rate isssue 
+id:-rupamjew          invoice number by metal rate
+--->>>Unsolved----------------------------------------------------------------------------------------------------------------------------
+id:-ssj29899      NETWORK ISSUE 
+id:-KESARWANI123  HE IS OUTSIDE HE WILL CALL BACK
+id:-kanakjewelles tah setting pending cable issue 
+id:-nareshdheer   call him at 3pm for tag setting
+id:-srinivasa     he will call back after somwe time
+id:-Ankit999      cnr
+id:-AJS1152       tag setting  pending
+id:-LOTUS         silver purchase issue 
+id:-mj1890        cnr
+
+
+----------------------------------Date:-10-04-24-----------------------------------------------
+--->>>solved----------------------------------------------------------------------------------------------------------------------------
+id:-ARNAB2003     INVOICE CUSTOMIZATION,DATA DELETE
+id:-ssj29899      data delete , master password and firm issue
+id:-sj1992        tag setting (50x25,66x10) DONE
+id:-Arvind@surat  INVOICE ISSUE AND UPDATE GIVEN
+id:- ncsc         login issue 
+id:-sanskruti     stock issue ,tag issue,system transfer  
+id:-HJAMAN        software slow and software transfer to another system
+id:-MYZADIAMONDS  staff create ,MASTER PASSWORD DONE
+id:-Sanskruti     login issue AND SILVER TAG SETTING
+--->>>Unsolved----------------------------------------------------------------------------------------------------------------------------
+id:- ssoni3181    he is outside now he will call back 
+id:-mj1890        he will call back after some time 
+id:-HJAMAN        software slow issue pending database taken on(10-04-2024)given simran madam
+
+
+
+----------------------------------Date:-11-04-24-----------------------------------------------
+--->>>solved----------------------------------------------------------------------------------------------------------------------------
+id:-satyam12        login done
+id:-MYZADIAMONDS    pms setting and staff login issue 
+id:-ARNAB2003       INVOICE SETTING
+id:-sarjujewellers  update given AND ISSUE PENDING.
+id:-aarthi          barcode setting
+id:-RKSARRAF        software update 
+id:-Sanskruti       estimate AND SELL invoice setting
+id:-omkar6113       data delete
+id:-GKSKJ           installtion and invoice setup done
+id:-ammu            installation done 
+--->>>Unsolved----------------------------------------------------------------------------------------------------------------------------
+id:-ASHOK JEWELLERS  HE IS BUSY NOW HE WILL CALL BACK
+id:-sarjujewellers   tds issue pending  AND KRAGIR (METAL AMOUNT NOT SHOWING) WHEN HE UPDATE THE TRANSCTION DATABASE TAKEN ON (11-04-2024)
+id:-ritujewellers    cnr
+id:-amba jewellers   cnr
+id:-nemichand        stock missmatch issue pending
+id:-omkar6113        tag pending(he is not having tag with him ..he will call after purchase it)
+id:-Namo@2024        he want signature at lone panel for loan release and update(requirements) 
+id:-mahaveer123      he will call back tomorrow for installtion
+id:-GKSKJ            he want to add tax on 2 hallmark 
+id:-ammu             tag and invoice pending
+
+
+
+
+----------------------------------Date:-12-04-24-----------------------------------------------
+--->>>solved----------------------------------------------------------------------------------------------------------------------------
+id:-Ssgems1          dicussed with him about his requirement
+id:-vishalSAJ24      installation done and invoice done
+id:-rahulsoni82108   SELL AND ESTIMATE INVOICE DONE
+id:-rahulsoni82108   data delete
+id:-anujmah29        data delete and p/l issue solved
+id:-pj1988           barcode file done ..
+id:-laxmi0512        barcode setting 
+
+--->>>Unsolved---------------------------------------------------------------------------------------------------------------------------
+id:- Anand gold smith    he is busy now he will call back after some time
+id:- MYZADIAMONDS        he will call me later  
+id:-Gayatri2009         he will call back after some time
+id:-Rinvas              he is outside now he will call back
+id:-Nehajewellers      WHEN HE PURCHASE FROM SUPPLIER THE ENTERY IN DAY BOOK SHOWING RED THIS IS THE ISSUE OF (PURCHASE FROM SUPPLIER AND RECIVED FROM SUPPLIER)  AND  WHEN HE SELL GOLD STOCK FROM B1 THEN IT IS NOT GETS UPDATE AND STOCK IS NOT LESS FROM REPORT AND FROM B2 TI IS WORKING CORRECT
+
+
+----------------------------------Date:-13-04-24-----------------------------------------------
+--->>>solved----------------------------------------------------------------------------------------------------------------------------
+id:- srinivasa        PMS SETTING DONE
+id:-sj1992            barcode issue 
+id:-Prabhusingh       invoice number issue
+id:-kalucharan majhi  INVOICE NUMBER ISSUE
+id:-nehajew           invoice setting done
+id:-DUTTAFINANCE      reinstallation, gst,non gst password done
+id:-MLJLLP            multiple stock delete and stock add issue 
+id:-ambar123          installation and master password done   
+id:-maajewellers      installation and master password done  
+id:-@shivam           barcode scanner issue and update given invoice not showing properly        
+--->>>Unsolved--------------------------------------------------------------------------------------------------------------------------
+
+id:- amoldumbre       he will call on monday for installtion
+id:- mahaveer123      cnr
+id:-balaji03          his payment is pending for installation
+id:-Alka1956          silver stock missmatch database taken on(13-04-2024)
+id:-srinivasa         in staff login web option is not available  but when wwe use the enter button thenn it can be acces
+id:-kalucharan majhi  INVOICE NUMBER ISSUE  (NOT GST BILSS ARE NOT SHOWING IN SELL PANNEL BUT WHEN WE APPLY DATE FILTER THEN IT SHOW)
+id:-ajit1622          3cnr
+id:- GAURAV SONI      call not connect
+id:-AJS1152           cnr  
+id:-Balaji1           file done but he is having network issue
+
+
+----------------------------------Date:-15-04-24-----------------------------------------------
+--->>>solved----------------------------------------------------------------------------------------------------------------------------
+
+id:-CMJ1           INVOICE CUSTOMIZATION and bill issue and form8 customization done
+id:-ammu           barcode setting
+id:-arakyan        barcode issue
+id:-@shivam        barcode scanner issue
+id:-yashojewellers pms setting issue
+id:-Sanskruti      invoice customizations
+id:-AJS1152        TAG SETUP DONE 
+--->>>Unsolved--------------------------------------------------------------------------------------------------------------------------
+
+id:-amoldumbre   he is outside now he will call bback
+id:-AJS1152      he will call back after 11:30
+id:-ammu         he will call back after some time // he is having network issue printer setup pending
+id:-Balaji1      he will call back after some time 
+id- Brahmanandamsons- 9059903169 /9603717015 cnr
+id:-Naag9599    cnr
+id:-ambika2016   cnr
+id:-meena1234    cnr
+
+
+---------------------------------Date:-16-04-24-----------------------------------------------
+--->>>solved----------------------------------------------------------------------------------------------------------------------------
+
+id:- KOLEKAR     stock add issue 
+id:-AJS1152     1)stock delete,
+                2)invoice alredy present issue, 
+                3)invoice customization,
+                4)tag issue DONE
+id:-sanskruti   1)Damage whole seller piece adjestment in report and bill
+                2) wholeseller credit list , supplier wise fine balance in case of no rate cut
+                3) lot stock list (to create tag) remaining weight and quntity while adding pices
+                4)bill amount adjustment in printed copy.
+                5)stock missmatch issue solved
+id:- meena1234   invoice customization
+id:-ammu        1)barcode setting
+                2)invoice customization
+                3)theme change 
+
+id:-sanskruti   1)Repair wrong entry in wholesell
+                2)Wrong entry in whole seller ( whole seller change..(diffrent than above)
+                3) bill print setup. Marjin error
+                4) Retail avalable stock balance print out.
+
+--->>>Unsolved--------------------------------------------------------------------------------------------------------------------------
+id:- MLJLLP -- when he added stock he applied making charges on ffwt in some items and some items on Gw and nw but at the time of sell he              want what he added on sell pannel  
+id:-srinivasa        he is outside now he will call back
+id:-GHODKE SARAF    he will call back after some time
+id:-ambikavichumbe  he is having network issue he will call back after some time
+
+
+
+
+
+--------------------------------Date:-17-04-24-----------------------------------------------
+--->>>solved----------------------------------------------------------------------------------------------------------------------------
+id:- Sanskruti   1) UPDATE GIVEN(322)
+                 2) invoice calculation issue
+                 3) stock add and sell calculation setting
+id:-Kas94122    1) installtion done 8267918312
+                2) master password done
+                3) gst invoice done
+                4) non-gst invoice done
+id:-chandu              update given(invoice issue)
+id:-ammu                invoice setting
+id:-sk1744              invoice alrey present issue DONE
+id:-Pravat123            barcode setting done
+id:-dioradiamonds        barcode setting
+id:-Ranjit Jewellers     login issue
+id:-lnjsnk2002           1)invoice customization 
+                         2)raw metal purchase issue 
+--->>>Unsolved--------------------------------------------------------------------------------------------------------------------------
+id:-priyanshu2020  9817322081      2CNR
+id:-Balaji1        he will call back tomorrow for barcode setting
+id:-Sanskruti    WHEN WE CONVERT WHOLESELL STOCK INTO RETAIL IT DO NOT REDUCE THE QUANTITY AFTER 5 PICES
+id:-Janish        installation pending
+id:-laxmi0512     cnr
+
+
+
+
+
+--------------------------------Date:-18-04-24-----------------------------------------------
+--->>>solved----------------------------------------------------------------------------------------------------------------------------
+id:- Prem709     1) estimate invoice issue 
+                 2) update given for raw metal issue
+id:-sahiba        silver rate update issue (update given)
+id:-Sanskruti     wholesale stock to retail stock convert issue 
+id:-Balaji1       barcode setting
+id:-Darshan283    barcode issue done
+id:-tirupatijew   1)installation
+                  2)barcode setup done 
+                  3)masterpassword
+id:-PAWAR4912     1)installation,
+                  2)barcode setup done , 
+                  3)masterpassword
+--->>>Unsolved--------------------------------------------------------------------------------------------------------------------------
+
+id:- ankur.1981  --   date filter at girvi release pannel
+
+id:- birjomal@111091  cnr
+id:-PradhanBhuta      he will call back tomorrow for installation
+
+
+
+
+
+-------------------------------Date:-19-04-24-----------------------------------------------
+--->>>solved----------------------------------------------------------------------------------------------------------------------------
+id:- deepak@3762        accounts issue done
+id:- yash@9999          login issue done
+id:- mahaveer1234       installtion,master password,gst password, nongst invoice set done
+id:- MAHARANI           invoice customization
+id:-sahyog              update given and login done
+id:-pryag jewellery     update given (software slow)
+id:-dioradiamonds       barcode setting done
+id:-BANSAL JEWELLERS    barocde done
+--->>>Unsolved--------------------------------------------------------------------------------------------------------------------------
+
+id:-sahyog             his phone is switchoff
+id:-PradhanBhuta       2 cnr
+id:-birjomal@111091    call him on tuesday for installation
+id:-BANSAL JEWELLERS	invoice pending
+id:-HLJPL  —           HE WANT TRAINING
+id:-pryag jewellery    tag setting pending
+id:-AMG301             call tomorrow for installtion 
+
+ 
+
+-------------------------------Date:-22-04-24-----------------------------------------------
+--->>>solved----------------------------------------------------------------------------------------------------------------------------
+id:-kiranjewellers78 - update given
+id:-ammu               invoice customization 
+
+
+
+--->>>Unsolved--------------------------------------------------------------------------------------------------------------------------
+id:-kiranjewellers78      in order transtion when he take exact gold from customer then after compltion the process it showing 2.5 gram as remaining AS DR TO THE CUSTOMER  database taken on (22/04/2024)
+
+
+
+
+-------------------------------Date:-23-04-24-----------------------------------------------
+--->>>solved----------------------------------------------------------------------------------------------------------------------------
+
+id:-AJS1152    barcode setting done , INVOICE SETTING DONE   
+id:-MADMAXD9923 firm issue 
+id:-nkjsgn24    invoice issue (update given)
+id:-ARNAB2003    invoice setting and update given
+id:-AL SHAHE HAMDAN	stock import file provided  
+id:-Ramkashi       software transfer ,invoice setup, barcode setting and software update 
+id:-MAHAKAYAYA     barcode setup done 
+--->>>Unsolved--------------------------------------------------------------------------------------------------------------------------
+
+id:-AJS1152  second stone VALUATION NOT CALCULATE
+id:-BANSAL JEWELLERS   cnr
+id:-sachin1978  his support is expired
+id:-Renuseth    his support is expired
+id:-nkjsgn24   invoice issue ...showing alternate numbers and not showing the item details ..he reset the invoice by mistake  database taken on(23-04-2024)
+id:-kiranjewellers78   he will call back tomorrow
+id:- AL SHAHE HAMDAN	 stock import pending
+
+
+
+
+
+
+
+-------------------------------Date:-24-04-24-----------------------------------------------
+--->>>solved----------------------------------------------------------------------------------------------------------------------------
+id:- kiranjewellers78  -- order pannel issue solved , invoice customization, reverse calculation done 
+id:- ARNAB2003         invoice setting
+ID:- jsknj             LOGIN ISSUE DONE
+id:-ajayverma123       invoice alredy present issue and invoice setup
+id:-anu0001           installation,master password done
+--->>>Unsolved--------------------------------------------------------------------------------------------------------------------------
+
+id:- Sanskruti       REQUIREMENT — he want metal details on estimate invoice list pannel   or  he want discount option on metal wise estimate invoice list pannel
+id:-ASTMANGAL        he will call back tomorrow
+id:-meena1234   --  tag setting
+id:-arun9166   -- he want to add the stone westage in gross weight
+id:- jsknj       hallmarking stock recieve option not showing at supplier pannel
+
+
+
+
+-------------------------------Date:-25-04-24-----------------------------------------------
+--->>>solved----------------------------------------------------------------------------------------------------------------------------
+
+id:- Kas94122  barcode setup done , data delete
+id:-soumitra   barcode issue , stock delete , scanner issue, master password set
+id:-CARAT.24   barcode setting , masterpassword
+id:-soumitra   stock setting, rate calculation issue, non gst invoice setting 
+id:-vikashprasad  barcode setting 
+id:-pooja2     master password , gst invoice,non gst invoice 
+id:-@Upp.23118.  software transfer 
+
+--->>>Unsolved--------------------------------------------------------------------------------------------------------------------------
+id:-hgandhi@511   he want training
+id:-ASTMANGAL     cnr
+id:-@Upp.23118.  barcode pending
+
+
+
+-------------------------------Date:-26-04-24-----------------------------------------------
+--->>>solved----------------------------------------------------------------------------------------------------------------------------
+id:- Saubhagya4799  -- update given, invoice number by metal
+id:- ijAdmin       --  tag issue , cr-dr issue ,stock and stock report issue 
+id:- anujmah29    --   software update ,purchase invoice customization, order issue and gst report issue 
+id:- ARNAB2003    --   estimate invoice issue solved, raw metal stock delete 
+id:- Sanskruti         supplier home page advance metall issue 
+id:- @Upp.23118.  --   software transfer and printer setup 
+id:- ARNAB2003    -    image issue solved
+--->>>Unsolved--------------------------------------------------------------------------------------------------------------------------
+
+id:-anujmah29   - requirement  he want repair work pannel in the software where he can take the damage product from cust. and return him ,in this he want to add gst charges on the repair amount   
+id:-
+
+
+
+-------------------------------Date:-27-04-24-----------------------------------------------
+--->>>solved----------------------------------------------------------------------------------------------------------------------------
+
+id:- Shubhsaraf    TAG ISSUE DONE
+id:-ijAdmin        tag isse 
+id:-vikashprasad   tag DONE , INVOICE SETUP DONE 
+id:-GAURAV SONI    tag setting 
+ID:-MsjBsp0        DATABASE TAKEN FOR SOFTWARE CONVERSION
+TO ONLINE 
+--->>>Unsolved--------------------------------------------------------------------------------------------------------------------------
+
+id:- MsjBsp01 -- he will call back after some time 
+id:- BADRI24  printer setup
+id:- Shubhsaraf  auto print not working  
+id:-BGDL2    HE WILL CALL  ON MONDAY 
+id:- 	@Upp.23118.   HE WILL CALL ON MONDAY
+
+
+
+
+-------------------------------Date:-29-04-24-----------------------------------------------
+--->>>solved----------------------------------------------------------------------------------------------------------------------------
+
+id:-Sanskruti  -          CR/DR ISSUE SOLVED
+id:-kiranjewellers78 -    invoice issue , customization, diamond valuation issue done 
+id:-ammu                  invoice customization, calaculation issue , data delete , barcode issue done 
+id:-Saurabh@5             invoice issue, and transiction issue solved
+id:-arun9166 (7230009166) stock sell issue done,master password done  
+id:-ugale                 tag issue and gst invoice customization , masterpassword
+id:-Rahul Ji              software update done , gst password , masterpassword done
+id:-MS mahalaxmi          installation, masterpassword, sell invoice done 
+--->>>Unsolved--------------------------------------------------------------------------------------------------------------------------
+
+id:-Sanskruti             CNR
+id:-Arvind@surat         support expired
+id:-ARNAB2003	         invoice issue , want training on melting pannel
+
+
+-------------------------------Date:-30-04-24-----------------------------------------------
+--->>>solved----------------------------------------------------------------------------------------------------------------------------
+id:-ALANKAR JEWLLERY         update given 
+id:-ARNAB2003                data delete and invoice custmization 
+id:-AJS1152                update DONE/ seconf stone valuation done
+id:-tirupatijew             mastre password, gst , non gst invoice, barcode issue done 
+id:-anujmah29              stock transction table repair done /login issue done 
+id:-kanakjewelles           masterpassword, gst,non gst invoice done 
+id:-@Upp.23118.             gst invoice customization,non-gst invoice customization ,and calculation issue done  tag issue done 
+id:-@Upp.23118.             
+--->>>Unsolved--------------------------------------------------------------------------------------------------------------------------
+id:- nite5h         9931338650   update pending (id deactivte )
+id:-K.K.Jewellers   call after 2 pm for happy code 
+id:-92kishor        call after 8 may 
+id:-AJS1152         update going 
+id:-Balaji1         cnr
+id:-nkjsgn24        invoice not showing issue 
+
+
+-------------------------------Date:-01-04-24-----------------------------------------------
+--->>>(holiday)calls----------------------------------------------------------------------------------------------------------------------------
+
+vijyajewellers
+9600065927
+ALANKAR JEWLLERY
+NandishJewellers(support expired)
+nitinsaad 
+CMJ1
+aarthi(tag )
+PCJBANKURA
+ASHISHJEWELLERS
+payal alankar(support expired)
+Aradhana Jewellers
+kishan7545
+Mks9613(hyper)
+golden 
+rattanjewellers
+ritik
+ajayverma123
+praneel99
+sushanta
+9828088099
+DAJ JEWELLERS
+arun9166(want training)
+cb619(hyper)
+srsneekhra
+CHHAVI JAIN (want training)
+harsh77078
+BHAGYA916
+ritujewellers(want to talk with maruti sir ... hyper)
+MJArjun
+prakash999
+gopal hans
+bp.sharma
+BGDL2
+meena1234
+dioradiamonds
+uniquealigarh
+nitinjewellers
+Kansari
+bahal jewellers(girvi demo)
+ASTMANGAL
+DhamankarSaraf(training team )/ invoice issue 
+sgj2001(login issue done)
+harsh1
+srjm
+k kaura jewels
+shreemakali@j
+NEW GOLDEN
+ARVIND@SURAT(support expired)
+karthikar.ar68
+JH@916
+jimmyashta
+NATIONALJEWELERS(he want to talk with maruti sir )
+MNJEWELLERS
+VRB BANKERS
+
+
+
+
+
+
+
+
+-------------------------------Date:-02-05-24-----------------------------------------------
+--->>>solved----------------------------------------------------------------------------------------------------------------------------
+id:-MNJEWELLERS              invoice issue 
+id:-ALANKAR JEWLLERY         login issue
+id:-golden                   login issue
+id:-dioradiamonds            tag issue 
+id:-prakash999               login issue done 
+id:-sgj2001                  login issue done 
+id:-srsneekhra               database recovered and update given 
+id:-Mks9613                  software reinstalltion done 
+id:-kiranjewellers78         order invoice customiztion, order issue done 
+id:-@Upp.23118.              stock delete, NON-GST INVOICE,UPDATE GIVEN
+id:-Yash@1753 (7990495482)   form 8 customization and loan date change issue 
+id:-Balaji1                  master password and gst password reset
+id:-ShubhamLav1@             login issue 
+--->>>Unsolved--------------------------------------------------------------------------------------------------------------------------
+id:-MAHAKAYAYA(9157591208)   gst report he want b2cs enteries in roundoff and  he want ledger enteries amount roundoff
+id:-shyam8423                 id given to sir for activate 
+id:-Jalan Ornaments           2 CNR 
+id:-gopal hans                 cnr
+id:-shreemangalam              cnr
+id:-ShubhamLav1@             login issue (his internate is not working )
+
+
+
+
+
+-------------------------------Date:-02-05-24-----------------------------------------------
+--->>>solved----------------------------------------------------------------------------------------------------------------------------
+
+id:-
+
+
+
+
+
+
+--->>>Unsolved--------------------------------------------------------------------------------------------------------------------------
+id:-ShubhamLav1@       cnr
+
+
+
+
+
+

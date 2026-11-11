@@ -1,0 +1,4 @@
+﻿"INV NO","DATE","FIRM","PARTY NAME","MOBILE","ADDRESS","METAL TYPE","PRODUCT CODE","ITEM NAME","QTY","GS WT","NT WT","PURITY","STN.WT (ALL)","STN.VAL. (ALL)","RATE","TAXABLE VAL","CGST","SGST","IGST","TOTAL","CASH","BANK","CARD","ONLINE","PREVIOUS AMT","ROUND OFF","TOTAL DISC","GSTIN","HUID"
+"INV-1036","2026-10-09","Jai Bhavani Jewellers","Jaydeep Dilip Khamkar","7775951999","","gold","mring","mring","1","10","9","22k","1","5000","13753.8","126004.08","1890.06","1890.06","0","129784.2","133678","0","0","0","0","-0.2","0","",""
+"INV-1008","2026-09-15","Jai Bhavani Jewellers","Anika Sharma","9300000022","Indore","","","Silver Chain","1","22","21.8","925","0","0","3200","3200","48","48","0","3296","1808","0","0","0","0","0","0","",""
+"INV-1001","2026-08-09","Jai Bhavani Jewellers","Gaurav Verma","9009112233","Bhopal","","","Gold Necklace Set","1","25.5","24.8","22K","0","0","285000","285000","0","0","0","285000","289900","0","0","0","0","0","5000","",""

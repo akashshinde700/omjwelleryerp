@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "OmGold ERP",
+    "slug": "omgold-mobile",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "omgold",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#b45309"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "in.omgold.mobile"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#b45309"
+      },
+      "package": "in.omgold.mobile"
+    },
+    "web": { "bundler": "metro" },
+    "plugins": ["expo-router"],
+    "extra": { "apiBaseUrl": "http://localhost:3000" }
+  }
+}

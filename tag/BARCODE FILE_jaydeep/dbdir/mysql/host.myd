@@ -1,0 +1,32 @@
+220125 11:40:41 [ERROR] Can't open and lock privilege tables: Table 'mysql.servers' doesn't exist
+220125 11:40:41 [ERROR] Column count of mysql.db is wrong. Expected 22, found 20. Created with MySQL 50041, now running 50146. Please use mysql_upgrade to fix this error.
+220125 11:40:41 [ERROR] mysql.user has no `Event_priv` column at position 29
+220125 11:40:41 [ERROR] Cannot open mysql.event
+220125 11:40:41 [ERROR] Event Scheduler: An error occurred when initializing system tables. Disabling the Event Scheduler.
+220125 11:40:41 [Note] D:\live\Online_Munim_Releases\OMUNIM_SALES_SVN\server\mysql\bin\mysqld.exe: ready for connections.
+Version: '5.1.46-community'  socket: ''  port: 7188  MySQL Community Server (GPL)
+251103 15:31:46 [ERROR] Can't open and lock privilege tables: Table 'mysql.servers' doesn't exist
+251103 15:31:46 [ERROR] Column count of mysql.db is wrong. Expected 22, found 20. Created with MySQL 50041, now running 50146. Please use mysql_upgrade to fix this error.
+251103 15:31:46 [ERROR] mysql.user has no `Event_priv` column at position 29
+251103 15:31:46 [ERROR] Cannot open mysql.event
+251103 15:31:46 [ERROR] Event Scheduler: An error occurred when initializing system tables. Disabling the Event Scheduler.
+251103 15:31:46 [Note] C:\jewellery_software_2.7.446\server\mysql\bin\mysqld.exe: ready for connections.
+Version: '5.1.46-community'  socket: ''  port: 7188  MySQL Community Server (GPL)
+251103 15:32:20 [Note] C:\jewellery_software_2.7.446\server\mysql\bin\mysqld.exe: Normal shutdown
+
+251105 14:57:32 [ERROR] Can't open and lock privilege tables: Table 'mysql.servers' doesn't exist
+251105 14:57:32 [ERROR] Column count of mysql.db is wrong. Expected 22, found 20. Created with MySQL 50041, now running 50146. Please use mysql_upgrade to fix this error.
+251105 14:57:32 [ERROR] mysql.user has no `Event_priv` column at position 29
+251105 14:57:32 [ERROR] Cannot open mysql.event
+251105 14:57:32 [ERROR] Event Scheduler: An error occurred when initializing system tables. Disabling the Event Scheduler.
+251105 14:57:32 [Note] C:\jewellery_software_2.7.446\server\mysql\bin\mysqld.exe: ready for connections.
+Version: '5.1.46-community'  socket: ''  port: 7188  MySQL Community Server (GPL)
+251105 15:13:53 [Note] C:\jewellery_software_2.7.446\server\mysql\bin\mysqld.exe: Normal shutdown
+
+251115 17:49:28 [ERROR] Can't open and lock privilege tables: Table 'mysql.servers' doesn't exist
+251115 17:49:28 [ERROR] Column count of mysql.db is wrong. Expected 22, found 20. Created with MySQL 50041, now running 50146. Please use mysql_upgrade to fix this error.
+251115 17:49:28 [ERROR] mysql.user has no `Event_priv` column at position 29
+251115 17:49:28 [ERROR] Cannot open mysql.event
+251115 17:49:28 [ERROR] Event Scheduler: An error occurred when initializing system tables. Disabling the Event Scheduler.
+251115 17:49:28 [Note] C:\jewellery_software_2.7.446\server\mysql\bin\mysqld.exe: ready for connections.
+Version: '5.1.46-community'  socket: ''  port: 7188  MySQL Community Server (GPL)

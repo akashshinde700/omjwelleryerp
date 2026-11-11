@@ -1,0 +1,21 @@
+<xpml><page quantity='0' pitch='15.0 mm'></xpml>SIZE 84.10 mm, 15 mm
+DIRECTION 0,0
+REFERENCE 0,0
+OFFSET 0 mm
+SET PEEL OFF
+SET CUTTER OFF
+SET PARTIAL_CUTTER OFF
+<xpml></page></xpml><xpml><page quantity='1' pitch='15.0 mm'></xpml>SET TEAR ON
+CLS
+BITMAP 15,76,7,40,1,ð    ÿÀ     ÿ€     ÿ¿Ýwÿþ÷~Îÿ¿ÿÿÿÿÿÿÿÿÿÿÿÿÿÿà þ ÿÀ ü  ÿ€  ø  € ð  € à  €  À  À ÿÿø ÿàþüÿð üøÿøø ð ÿüø àÿþ üÀÿÿ |€?ÿÿ€> ÿÿÀþ ÿÿÿàüÿÿÿð øÿÿÿøð ÿÿÿüàÿÿÿþ Àÿÿÿÿ  ?ÿÿÿÿ€ ÿÿÿÿÀ ÿÿÿÿÿàÿÿÿÿÿðÿÿÿÿÿø ÿÿÿÿÿüÿÿÿÿÿþ?ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ
+CODEPAGE 1252
+TEXT 320,140,"ROMAN.TTF",180,1,7,"OPTION1"
+BARCODE 153,106,"128M",31,0,180,1,2,"OPTIONZ"
+TEXT 320,109,"ROMAN.TTF",180,1,7,"OPTION3"
+TEXT 320,86,"ROMAN.TTF",180,1,7,"OPTION8"
+TEXT 320,63,"ROMAN.TTF",180,1,7,"OPTION4"
+TEXT 224,140,"ROMAN.TTF",180,1,7,"OPTION5"
+TEXT 153,140,"ROMAN.TTF",180,1,7,"OPTION7"
+TEXT 153,61,"ROMAN.TTF",180,1,7,"OPTION6"
+PRINT 1,1
+<xpml></page></xpml><xpml><end/></xpml>

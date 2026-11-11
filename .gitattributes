@@ -1,0 +1,13 @@
+# Printer command files (.prn) are raw bytes sent straight to the label printer.
+# Their CRLF line endings are part of the payload (EPL2/TSPL/ZPL parsers and the
+# golden-file tests in tests/unit/label-*.test.ts assert them byte for byte), and
+# _bis files carry binary BITMAP/GW data. Never let git (core.autocrlf / eol
+# normalisation) or an editor rewrite them. Worklog: fixtures once arrived with
+# every CR stripped and 14 label tests failed.
+*.prn  binary
+*.PRN  binary
+tests/unit/fixtures/** binary
+
+# BarTender / NiceLabel design files from the owner's printers
+*.btw  binary
+*.nlbl binary

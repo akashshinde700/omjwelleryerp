@@ -1,0 +1,22 @@
+                                          SIZE 80.10 mm, 12 mm
+DIRECTION 0,0
+REFERENCE 0,0
+OFFSET 0 mm
+SET PEEL OFF
+SET CUTTER OFF
+SET PARTIAL_CUTTER OFF
+SET TEAR ON
+CLS
+BITMAP 200,32,6,32,1,à    ?€    ŸÿÿÿÿÏËïçŸ÷ÿÿÿÿÿÿÿÿÿÿÿÿà ð ?€ ?à € À € € €    €   ÀøÿÀàðÀ?ðà?€ø à? ÿüà>ÿþð|ÿÿ øø ÿÿ€ðÿÿÀ?àÿÿàÀ?ÿÿð€ÿÿø  ÿÿÿü ÿÿÿþ ÿÿÿÿ  ÿÿÿÿ€ÿÿÿÿÀÿÿÿÿà?ÿÿÿÿøÿÿÿÿÿÿÿÿÿ
+CODEPAGE 1252
+TEXT 626,90,"ROMAN.TTF",180,1,8,"OPTION1"
+TEXT 626,70,"ROMAN.TTF",180,1,8,"OPTION2"
+TEXT 626,28,"ROMAN.TTF",180,1,8,"OPTION8"
+TEXT 500,90,"ROMAN.TTF",180,1,8,"OPTION5"
+TEXT 380,30,"ROMAN.TTF",180,1,8,"OPTION6"
+TEXT 405,90,"ROMAN.TTF",180,1,8,"OPTION7"
+BARCODE 380,64,"128M",22,0,180,1,2,"OPTIONZ"
+TEXT 626,50,"ROMAN.TTF",180,1,8,"OPTION3"
+PRINT 1,1
+
+                                                                                                                                                                                                                                                            

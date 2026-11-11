@@ -1,0 +1,22 @@
+# OmGold ERP — reverse proxy.
+#
+# REMOVED, deliberately: a `@transform_port_query` matcher that did
+#     reverse_proxy localhost:{query.XTransformPort}
+# It let ANY visitor choose the upstream port from the query string. `?XTransformPort=3306`
+# reached MySQL; any other local service was one number away. The app's login was not bypassed
+# so much as skipped — the request never reached the app at all. Nothing in this repo used it,
+# and there is no safe way to keep a visitor-chosen upstream: the value cannot be validated into
+# safety, because every port worth protecting is a port someone could type.
+#
+# The default upstream also pointed at 3000 while the app serves 3002, so this file could not
+# have worked as written.
+:81 {
+	handle {
+		reverse_proxy localhost:3002 {
+			header_up Host {host}
+			header_up X-Forwarded-For {remote_host}
+			header_up X-Forwarded-Proto {scheme}
+			header_up X-Real-IP {remote_host}
+		}
+	}
+}
