@@ -1,8 +1,30 @@
-# OmGold ERP — poori series (9 videos, Hinglish)
+# OmGold ERP — poori series (Hinglish)
 
-OmGold ERP ko shuru se aakhir tak samjhane wali 9 videos: asli screens, Hindi awaaz, Roman Hinglish captions. Kul 17:41 (minute:second), 79.0 MB.
+OmGold ERP ko shuru se aakhir tak samjhane wali videos: asli screens, Hindi awaaz, Roman Hinglish captions.
 
-## Videos
+## Poora software, ek video mein
+
+**[00-full-video/brag.mp4](00-full-video/brag.mp4)** — 17:41, 79.5 MB. Neeche ki 9 videos ek saath, isi order mein.
+
+| Samay | Hissa |
+|---|---|
+| 0:00 | 1. Software ki Pehchaan |
+| 2:01 | 2. Pehli Baar ka Setup |
+| 3:49 | 3. Stock |
+| 5:42 | 4. Billing |
+| 8:35 | 5. Gold Loan (Girvi) |
+| 10:16 | 6. Udhaar, Schemes, Kharche |
+| 11:43 | 7. The Books |
+| 13:22 | 8. Print, Setup, Routine |
+| 14:46 | 9. Andar se kaise bana hai |
+
+Folder mein `brag.mp4` ke saath poster `brag.jpg`, Hindi subtitles `brag.hi.srt`, `share-copy.txt` aur `chapters.txt` (YouTube description mein chipkane ke liye) hain. MP4 ke andar bhi yahi chapters hain. `tools/` mein wo scripts hain jinse ye video bani.
+
+Is video mein 5 jagah framing theek ki gayi hai — neeche "Theek ki gayi kamiyan" dekhiye.
+
+## 9 alag videos
+
+Kul 17:41 (minute:second), 79.0 MB.
 
 | # | Video | Lambai | Size | Isme kya hai |
 |---|---|---|---|---|
@@ -27,8 +49,8 @@ OmGold ERP ko shuru se aakhir tak samjhane wali 9 videos: asli screens, Hindi aw
 | `brag.jpg` | Poster / thumbnail. |
 | `share-copy.txt` | Post ke saath likhne layak caption. |
 | `brag.hi.srt` | Hindi subtitles (narration ke shabd) — YouTube par video ke saath upload kar sakte hain. |
-| `brag-plan.md` | Kahani aur storyboard: har scene ka narration aur caption. |
-| `composition-brief.md` | Hyperframes ke liye brief, aur check ka nateeja. |
+| `brag-plan.md` | Kahani aur storyboard: har scene ka narration aur caption. (Sirf 9 alag videos mein.) |
+| `composition-brief.md` | Hyperframes ke liye brief, aur check ka nateeja. (Sirf 9 alag videos mein.) |
 
 ## Kaise bani
 
@@ -36,21 +58,28 @@ OmGold ERP ko shuru se aakhir tak samjhane wali 9 videos: asli screens, Hindi aw
 - **Screens asli app ki hain.** App ko sandbox mein chala kar capture ki gayi hain. Data kalpanik hai (firm "Jai Bhavani Jewellers", grahak Ramesh Kumar, Sunita Devi…) — kisi asli grahak ya dukaan ka nahi.
 - **Awaaz** AI ki hai (Hindi). Screen ke captions Roman Hinglish mein hain. Narration aur subtitles ka samay awaaz ke pause naap kar baithaya gaya hai.
 - Har video `hyperframes check` se guzri: 0 errors, 0 warnings.
+- **Full video** 9 videos ko ffmpeg se jod kar bani hai; har hisse ke shuru mein 0.3 second ka dissolve hai. 5 jagah ki framing rendered video par hi badli gayi hai, kyonki un scenes ko dobara render karne ka source ab nahi hai. Poori video ek baar aur encode hui hai (H.264, CRF 22).
 
 ## Ye jaan lijiye
 
 - **Lambai:** brag 15–25 second ki video banata hai. Ye series jaan-boojh kar lambi hai, kyonki maqsad poora software samjhana tha. Baaki sab brag ke hisaab se hai.
-- **Awaaz:** AI ki hai. Kisi shabd ka uchcharan galat lage to us video ko dobara render karna hoga.
-- **`composition/` yahan nahi hai.** Hyperframes ka source (9 folders, 43.9 MB) size ki wajah se repo mein nahi rakha gaya.
+- **Awaaz:** AI ki hai. Kisi shabd ka uchcharan galat lage to us video ko dobara banana hoga.
+- **Hyperframes ka source ab nahi hai.** `composition/` folders size ki wajah se repo mein nahi rakhe gaye the, aur jis workspace mein the wo ab nahi hai. Aage koi scene badalna ho to rendered video par hi kaam hoga, ya us video ko shuru se banana hoga.
+- **"Video N / 9" aur "Agla video":** full video mein bhi har hissa apne title card se shuru hota hai aur narration "agle video" hi kehti hai — ye 9 videos ka jod hai, nayi recording nahi.
 - **Adhure features:** Online Store, SMS gateway, weighing scale ka test aur "Forgot password?" abhi kaam nahi karte. Video 8 ke aakhir mein ye bataya gaya hai.
 
-## Chhoti kamiyan
+## Theek ki gayi kamiyan (sirf full video mein)
 
-Inhe theek karne ke liye us video ko dobara render karna hoga.
+| Full video mein | Alag video mein | Kya tha | Kya kiya |
+|---|---|---|---|
+| 2:28–2:41 | Video 2, 0:27–0:39 | Dialog ke daayein taraf background ki ek patti dikhti thi. | Framing 1.2× tight ki; patti ab frame ke bahar hai. |
+| 4:51–4:56 | Video 3, 1:01–1:06 | Sidebar mein "Billing" ka highlight bahut chhota tha. | Camera ab page ke baayein hisse par rukta hai (1.47×). |
+| 5:07–5:15 | Video 3, 1:18–1:25 | Status ka highlight chhota tha. | Poora scene ab table par framed hai (1.34×). |
+| 7:53–7:59 | Video 4, 2:11–2:17 | Zoom mein page ka heading baayein se kata tha. | Camera 4% pehle rukta hai; heading poora dikhta hai. |
+| 11:19–11:23 | Video 6, 1:02–1:06 | "Total" aur "The Books" ke highlight bahut chhote the. | Page ke baayein hisse par zoom (1.49×). |
 
-- **Video 4, 2:11–2:17** ("Convert to Invoice"): zoom mein page ka heading baayein se kata dikhta hai.
-- **Video 2, 0:27–0:39** (firm ka State): dialog ke daayein taraf background ki ek patti dikhti hai.
-- **Video 3, 1:01–1:06 aur 1:18–1:25; Video 6, 1:02–1:06:** highlight ka box bahut chhota hai.
+- **Alag videos 2, 3, 4 aur 6 ki files nahi badli hain** — unme ye kamiyan abhi hain.
+- Jahan zoom badhaya gaya hai (1.2× se 1.5×), wahan picture rendered video se badi ki gayi hai, isliye un kuch second mein text thoda naram dikhta hai.
 
 ## Credits
 
