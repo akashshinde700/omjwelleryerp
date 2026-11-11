@@ -1,0 +1,1 @@
+OmGold ERP andar se: Next.js + Prisma + MySQL, 35 screens, 65 API route files, 40 data models, 1,402 unit tests. Video 9/9.
